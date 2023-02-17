@@ -1,14 +1,13 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="header">
-    <p>Beställ Container</p>
-  </div>
+    <div class="header">
+        <p>Beställ Container</p>
+    </div>
 </template>
 
 <style scoped>
-@media (max-width: 480px) {
-  .header {
+.header {
     display: flex;
     align-items: center;
     text-align: center;
@@ -17,7 +16,6 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 24px;
-  }
-
 }
+
 </style>
