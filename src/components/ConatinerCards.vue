@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import Swiper from "swiper";
-import "swiper/swiper-bundle.css";
+import Swiper, { Pagination } from "swiper";
+import "swiper/css/bundle";
 
 export default {
     mounted() {
@@ -33,6 +33,10 @@ export default {
             spaceBetween: 20,
             centeredSlides: true,
             grabCursor: true,
+            modules: [Pagination],
+            pagination: {
+                el: ".swiper-pagination",
+            },
         });
     },
 };
@@ -42,7 +46,8 @@ export default {
 .swiper-container {
     display: flex;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    position: relative;
 }
 
 .swiper-slide {
@@ -64,6 +69,6 @@ export default {
 }
 
 .swiper-pagination {
-    z-index: 10;
+    --swiper-pagination-bottom: -20px;
 }
 </style>
