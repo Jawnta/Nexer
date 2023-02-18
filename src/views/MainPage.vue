@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import TopLogo from "@/components/TopLogo.vue";
 import TopHeader from "@/components/TopHeader.vue";
-import Containers from "@/components/Containers.vue";
-import Calender from "@/components/Calender.vue";
-import Maps from "@/components/Maps.vue";
+import Containers from "@/components/ConatinerCards.vue";
+import Calender from "@/components/DatePickers.vue";
+import MapContainer from "@/components/MapContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import OrderButton from "@/components/OrderButton.vue";
 </script>
 
 <template>
@@ -12,9 +13,10 @@ import UserInfo from "@/components/UserInfo.vue";
         <TopLogo />
         <TopHeader />
         <Containers />
-        <Calender />
-        <Maps />
+        <Calender @addDates="handleDates" />
+        <MapContainer />
         <UserInfo />
+        <OrderButton />
     </div>
 </template>
 
@@ -24,5 +26,36 @@ import UserInfo from "@/components/UserInfo.vue";
     display: flex;
     flex-flow: column wrap;
     align-items: center;
+    background: white;
+    overflow: hidden;
 }
 </style>
+
+<script lang="ts">
+export default {
+    data() {
+        return {
+            uppercase: "",
+            data: {
+                deliveryDate: "",
+                pickupDate: "",
+                coordinates: "",
+                firstName: "",
+                lastName: "",
+                socialSecurity: "",
+                phoneNumber: "",
+                email: "",
+                address: "",
+                zipcode: "",
+                city: "",
+            },
+        };
+    },
+    methods: {
+        handleDates(data: { deliveryDate: string; pickupDate: string }) {
+            this.data.deliveryDate = data.deliveryDate;
+            this.data.pickupDate = data.pickupDate;
+        },
+    },
+};
+</script>

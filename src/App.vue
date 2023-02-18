@@ -7,8 +7,9 @@
 </template>
 
 <style scoped>
-    .wrapper {
-        display: flex;
-        flex-flow: column wrap;
-} 
+.wrapper {
+    display: flex;
+    flex-flow: column wrap;
+    background: #ffffff;
+}
 </style>
