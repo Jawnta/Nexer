@@ -35,7 +35,7 @@ export default {
         },
         formatDate(date: {
             getDate: () => any;
-            getMonth: () => number;
+            getMonth: () => any;
             getFullYear: () => any;
         }): string {
             const day = date.getDate().toString().padStart(2, "0");
