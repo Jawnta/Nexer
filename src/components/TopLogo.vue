@@ -8,10 +8,9 @@
 
 <style scoped>
 .logo {
-    display: flex;
-    align-items: center;
-    width: 154px;
-    height: 50px;
+    width: 116px;
+    height: 44px;
+    margin: 0 auto;
     background: url("../src/assets/img/logo.png") no-repeat;
     background-size: contain;
 }
