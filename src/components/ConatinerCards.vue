@@ -45,9 +45,11 @@ export default {
 <style scoped>
 .swiper-container {
     display: flex;
-    width: 100%;
+    width: 264px;
     margin-bottom: 40px;
     position: relative;
+    Height: 460px;
+    border-radius: 24px;
 }
 
 .swiper-slide {
