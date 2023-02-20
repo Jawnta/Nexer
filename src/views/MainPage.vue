@@ -58,7 +58,7 @@ export default {
             this.data.deliveryDate = data.deliveryDate;
             this.data.pickupDate = data.pickupDate;
         },
-        handleUserDetails(userData) {
+        handleUserDetails(userData: UserDetails) {
             for (let key in userData) {
                 if (key in this.data) {
                     this.data[key] = userData[key];
