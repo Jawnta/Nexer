@@ -57,7 +57,7 @@ export default {
 }
 
 .date-container input {
-    font-family: "ubuntu",serif;
+    font-family: "ubuntu", serif;
     background-color: white;
     box-shadow: #0000002e 3px 3px 20px;
     border: none;

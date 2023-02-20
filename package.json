@@ -9,7 +9,7 @@
     "test:unit": "vitest --environment jsdom --root src/",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "vue-cli-service lint --no-cache --fix --max-errors 10",
+    "lint": "eslint --fix --max-warnings 10 \"src/**/*.{js,ts,vue}\"",
     "prettier:check": "prettier --check '**/*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}'"
   },
   "dependencies": {

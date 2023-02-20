@@ -13,8 +13,12 @@
     background: #ffffff;
 }
 
-p, h1, h2, h3, label, button {
-    font-family: 'Ubuntu';
+p,
+h1,
+h2,
+h3,
+label,
+button {
+    font-family: "Ubuntu";
 }
-
 </style>
