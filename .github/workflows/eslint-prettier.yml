@@ -1,0 +1,22 @@
+name: ESLint and Prettier
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+
+jobs:
+  eslint-prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: ESLint check
+        run: npm run lint
+      - name: Prettier check
+        run: npm run prettier:check
