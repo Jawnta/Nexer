@@ -1,4 +1,4 @@
-name: ESLint and Prettier
+name: ESLint, Prettier, and TypeScript
 
 on:
   push:
@@ -8,9 +8,8 @@ on:
     branches:
       - '**'
 
-
 jobs:
-  eslint-prettier:
+  eslint-prettier-typescript:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,5 +17,11 @@ jobs:
         run: npm install
       - name: ESLint check
         run: npm run lint
+        env:
+          CI: true
       - name: Prettier check
         run: npm run prettier:check
+      - name: TypeScript check
+        run: npm run type-check
+        env:
+          CI: true
