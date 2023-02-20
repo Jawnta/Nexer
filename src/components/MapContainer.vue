@@ -1,13 +1,15 @@
 <template>
-  <div class="map-view">
-    <l-map ref="map" v-model:zoom="zoom" :center="center" :zoomControl="false">
-      <l-tile-layer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        layer-type="base"
-        name="OpenStreetMap"
-      ></l-tile-layer>
-    </l-map>
-  </div>
+    <h1>Leveransions plats</h1>
+    <div class="map-view">
+        <l-map ref="map" v-model:zoom="zoom" :center="center" :zoomControl="false" style="border-radius: 15px;">
+        <l-tile-layer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            layer-type="base"
+            name="OpenStreetMap"
+        ></l-tile-layer>
+        </l-map>
+    </div>
+    <button class="ar-button">Ta bild med AR</button>
 </template>
 
 <script lang="ts">
@@ -39,8 +41,20 @@ export default {
 
 <style>
 .map-view {
-  height: 300px;
-  width: 300px;
-  margin: 20px 0 20px 0;
+    height: 300px;
+    width: 300px;
+    margin: 20px 0 20px 0;
+}
+
+.ar-button {
+    box-shadow: #00000020 10px 10px 40px;
+    cursor: pointer;
+    min-width: 250px;
+    padding: 15px;
+    margin-bottom: 50px;
+    border: none;
+    border-radius: 40px;
+    background-color: #2C84D0;
+    color: white;
 }
 </style>

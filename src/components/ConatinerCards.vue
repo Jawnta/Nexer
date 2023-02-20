@@ -2,7 +2,7 @@
     <transition name="slide">
         <div
             v-show="showInfo"
-            class="info-box"
+            class="info-popup"
             :class="showInfo ? 'animation-in' : 'animation-out'"
         >
             <p>{{ selectedCard.info }}</p>
@@ -17,8 +17,10 @@
                 class="swiper-slide"
             >
                 <div class="content">
-                    <p>{{ card.title }}</p>
-                    <button @click="showCardInfo(card)">Show Info</button>
+                    <img src="../assets/img/container1.png" style="width: inherit;">
+                    <h2>{{ card.title }}</h2>
+                    <button class="get-button">+</button>
+                    <button class="info-button" @click="showCardInfo(card)" >Pris & info</button>
                 </div>
             </div>
         </div>
@@ -27,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import Swiper, { Pagination } from "swiper";
+import { Swiper, Pagination } from "swiper";
 import "swiper/css/bundle";
 
 interface Card {
@@ -54,15 +56,15 @@ export default {
             selectedCard: {} as Card,
             cards: [
                 {
-                    title: "Container Card #1",
+                    title: "8 Kubikmeter",
                     info: "This is some information for card #1",
                 },
                 {
-                    title: "Container Card #2",
+                    title: "10 Kubikmeter",
                     info: "This is some information for card #2",
                 },
                 {
-                    title: "Container Card #3",
+                    title: "20 Kubikmeter",
                     info: "This is some information for card #3",
                 },
             ],
@@ -91,31 +93,56 @@ export default {
     display: flex;
     width: 100%;
     height: 460px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    background-color: white;
+    box-shadow: #00000020 10px 10px 40px;
     border-radius: 24px;
 }
 
 .content {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    justify-items: center;
     width: 100%;
     margin: 20px;
+    margin-top: 50px;
     height: 10px;
     word-break: break-word;
 }
 
-.swiper-pagination {
-    --swiper-pagination-bottom: -20px;
+.get-button {
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 15px;
+    width: 60%;
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 40px;
+    box-shadow: #00000028 4px 4px 20px;
+    background-color: #2C84D0;
+    color: white;
 }
 
-.info-box {
-    position: absolute;
+.info-button, .info-popup button {
+    cursor: pointer;
+    padding: 10px;
+    width: 80%;
+    border: none;
+    border-radius: 40px;
+    background-color: #C0E0FF;
+    color: #2985E1;
+}
+
+.swiper-pagination {
+    --swiper-pagination-bottom: -30px;
+}
+
+.info-popup {
+    position: fixed;
+    text-align: center;
     margin: 20px;
-    width: 95%;
-    height: 600px;
+    width: 90vw;
+    height: 80vh;
     background: white;
-    border: 1px solid black;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    box-shadow: #00000028 4px 4px 20px;
     border-radius: 24px;
     z-index: 9999;
 }

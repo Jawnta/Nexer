@@ -1,18 +1,19 @@
-<script setup lang="ts"></script>
-
 <template>
     <div>
-        <button class="order_button">Beställ</button>
+        <button class="order-button">Beställ</button>
     </div>
 </template>
 
 <style>
-.order_button {
+.order-button {
+    box-shadow: #00000020 10px 10px 40px;
+    cursor: pointer;
     font-size: 1.5em;
     min-width: 250px;
     padding: 15px;
+    margin-bottom: 50px;
     border: none;
-    border-radius: 10px;
+    border-radius: 40px;
     background-color: #2C84D0;
     color: white;
 }
