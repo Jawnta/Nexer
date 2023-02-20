@@ -20,6 +20,7 @@
                     <img
                         :src="card.logo"
                         style="width: inherit"
+                        alt="container-logo"
                     />
                     <h2>{{ card.title }}</h2>
                     <button class="get-button">+</button>
@@ -117,8 +118,7 @@ export default {
     display: grid;
     justify-items: center;
     width: 100%;
-    margin: 20px;
-    margin-top: 50px;
+    margin: 50px 20px 20px;
     height: 10px;
     word-break: break-word;
 }
