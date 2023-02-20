@@ -1,29 +1,38 @@
 <script setup lang="ts">
-import Datepicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
+/* import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css"; */
 </script>
 
 <template>
-    <div class="main">
-        <label For="send" class="date-label"> Leveransdatum: </label>
-        <Datepicker
-            id="send"
-            class="datepicker"
-            v-model="deliveryDate"
-            :format="setDeliveryDate"
-        />
-        <label for="return" class="date-label"> Upphämtningsdatum: </label>
-        <Datepicker
-            id="return"
-            class="datepicker"
-            v-model="pickupDate"
-            :format="setPickupDate"
-        />
+    <h1>Välj datum</h1>
+    <div class="date-container">
+        <!-- Delivery date -->
+        <div class="date-column">
+            <label For="deliveryDate"> Levereras: </label>
+            <input 
+                type="date"
+                id="deliveryDate"
+                name="deliveryDate"
+                v-model="deliveryDate"
+                :format="setDeliveryDate"
+            >
+        </div>
+        <!-- Pickup date -->
+        <div class="date-column">
+            <label for="pickupDate" class="date-label"> Hämtas: </label>
+            <input 
+                type="date"
+                id="pickupDate"
+                name="pickupDate"
+                v-model="pickupDate"
+                :format="setPickupDate"
+            >
+        </div>
     </div>
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+/* import { ref } from "vue";
 
 export default {
     async mounted() {},
@@ -63,23 +72,32 @@ export default {
             pickupDate: ref(new Date()),
         };
     },
-};
+}; */
 </script>
 
 <style scoped>
-.main {
+.date-container {
+    font-size: large;
     display: flex;
-    flex-flow: column wrap;
+    gap: 15px;
 }
 
-.datepicker {
+.date-container input {
+    font-family: 'ubuntu';
+    background-color: white;
     box-shadow: #0000002e 3px 3px 20px;
-    margin-bottom: 20px;
+    border: none;
+    width: 100px;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-.date-label {
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
-    font-size: 1.5em;
+.date-container input:focus {
+    outline: rgb(151, 149, 149) solid 1px;
 }
+
+.date-column {
+    display: grid;
+}
+
 </style>

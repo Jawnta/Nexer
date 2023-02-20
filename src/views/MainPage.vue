@@ -26,7 +26,7 @@ import OrderButton from "@/components/OrderButton.vue";
     display: flex;
     flex-flow: column wrap;
     align-items: center;
-    background: white;
+    background: #e2e2e2;
     overflow: hidden;
 }
 </style>

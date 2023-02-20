@@ -1,11 +1,9 @@
-<script setup lang="ts"></script>
-
 <template>
+    <h1>Din information</h1>
     <div class="userinfo">
-        <h2>UserInfo</h2>
-        <label>First name</label>
+        <label>Förnamn</label>
         <input v-model="firstName"><br>
-        <label>Last name</label>
+        <label>Efternamn</label>
         <input v-model="lastName"><br>
         <label>Personnummer</label>
         <input v-model="ssn"><br>
@@ -26,12 +24,14 @@
 .userinfo {
     text-align: left;
     display: grid;
+    margin-bottom: 30px;
 }
 
 .userinfo input {
     font-weight: bold;
-    box-shadow: #0000002e 3px 3px 20px;
+    box-shadow: #00000028 4px 4px 40px;
     border: #cccccc solid 1px;
+    margin: 5px;
     padding: 10px;
     border-radius: 5px;
 }

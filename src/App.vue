@@ -6,10 +6,15 @@
     </div>
 </template>
 
-<style scoped>
+<style>
 .wrapper {
     display: flex;
     flex-flow: column wrap;
     background: #ffffff;
 }
+
+p, h1, h2, h3, label, button {
+    font-family: 'Ubuntu';
+}
+
 </style>
