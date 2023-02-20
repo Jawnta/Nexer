@@ -15,7 +15,7 @@
     margin-bottom: 50px;
     border: none;
     border-radius: 40px;
-    background-color: #2C84D0;
+    background-color: #2c84d0;
     color: white;
 }
 </style>

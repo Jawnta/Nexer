@@ -37,7 +37,6 @@ export default {
         handleChange() {
             this.$emit("addDates", this.dates);
         },
-
     },
     data() {
         return {
@@ -58,7 +57,7 @@ export default {
 }
 
 .date-container input {
-    font-family: "ubuntu";
+    font-family: "ubuntu",serif;
     background-color: white;
     box-shadow: #0000002e 3px 3px 20px;
     border: none;
@@ -74,5 +73,4 @@ export default {
 .date-column {
     display: grid;
 }
-
 </style>

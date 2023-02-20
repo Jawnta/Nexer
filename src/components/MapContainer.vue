@@ -2,13 +2,21 @@
 <template>
     <div class="map-view">
         <h1>Containerplacering</h1>
-    <p class="placering-info">Ange placering för containern genom att sätta en markör.</p>
-        <l-map ref="map" v-model:zoom="zoom" :center="center" :zoomControl="false" style="border-radius: 15px;">
-        <l-tile-layer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            layer-type="base"
-            name="OpenStreetMap"
-        ></l-tile-layer>
+        <p class="placering-info">
+            Ange placering för containern genom att sätta en markör.
+        </p>
+        <l-map
+            ref="map"
+            v-model:zoom="zoom"
+            :center="center"
+            :zoomControl="false"
+            style="border-radius: 15px"
+        >
+            <l-tile-layer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                layer-type="base"
+                name="OpenStreetMap"
+            ></l-tile-layer>
         </l-map>
     </div>
     <button class="ar-button">Ta bild med AR</button>
@@ -21,9 +29,12 @@ import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 export default {
     mounted() {
         if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.center = [position.coords.latitude, position.coords.longitude];
-        });
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.center = [
+                    position.coords.latitude,
+                    position.coords.longitude,
+                ];
+            });
         }
     },
     components: {
@@ -32,11 +43,10 @@ export default {
     },
     data() {
         return {
-        zoom: 15,
-        center: [56.16156, 15.58661],
+            zoom: 15,
+            center: [56.16156, 15.58661],
         };
     },
-
 };
 </script>
 
@@ -55,7 +65,7 @@ export default {
     margin-bottom: 50px;
     border: none;
     border-radius: 40px;
-    background-color: #2C84D0;
+    background-color: #2c84d0;
     color: white;
 }
 
