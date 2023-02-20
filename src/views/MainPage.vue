@@ -35,7 +35,6 @@ import OrderButton from "@/components/OrderButton.vue";
 export default {
     data() {
         return {
-            uppercase: "",
             data: {
                 deliveryDate: "",
                 pickupDate: "",

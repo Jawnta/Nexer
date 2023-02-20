@@ -17,10 +17,15 @@
                 class="swiper-slide"
             >
                 <div class="content">
-                    <img src="../assets/img/container1.png" style="width: inherit;">
+                    <img
+                        :src="card.logo"
+                        style="width: inherit"
+                    />
                     <h2>{{ card.title }}</h2>
                     <button class="get-button">+</button>
-                    <button class="info-button" @click="showCardInfo(card)" >Pris & info</button>
+                    <button class="info-button" @click="showCardInfo(card)">
+                        Pris & info
+                    </button>
                 </div>
             </div>
         </div>
@@ -31,6 +36,9 @@
 <script lang="ts">
 import { Swiper, Pagination } from "swiper";
 import "swiper/css/bundle";
+import container8 from "../assets/img/container_8.png";
+import container10 from "../assets/img/container_10.png";
+import container20 from "../assets/img/container_20.png";
 
 interface Card {
     title: string;
@@ -56,14 +64,17 @@ export default {
             selectedCard: {} as Card,
             cards: [
                 {
+                    logo: container8,
                     title: "8 Kubikmeter",
                     info: "This is some information for card #1",
                 },
                 {
+                    logo: container10,
                     title: "10 Kubikmeter",
                     info: "This is some information for card #2",
                 },
                 {
+                    logo: container20,
                     title: "20 Kubikmeter",
                     info: "This is some information for card #3",
                 },
@@ -71,7 +82,11 @@ export default {
         };
     },
     methods: {
-        showCardInfo(card: Card) {
+        showCardInfo(
+            card:
+                | { logo: string; title: string; info: string }
+                | { title: string; info: string }
+        ) {
             this.selectedCard = card;
             this.showInfo = true;
         },
@@ -82,10 +97,10 @@ export default {
 <style scoped>
 .swiper-container {
     display: flex;
-    width: 264px;
+    width: 90%;
     margin-bottom: 40px;
     position: relative;
-    Height: 460px;
+    height: 460px;
     border-radius: 24px;
 }
 
@@ -117,18 +132,19 @@ export default {
     border: none;
     border-radius: 40px;
     box-shadow: #00000028 4px 4px 20px;
-    background-color: #2C84D0;
+    background-color: #2c84d0;
     color: white;
 }
 
-.info-button, .info-popup button {
+.info-button,
+.info-popup button {
     cursor: pointer;
     padding: 10px;
     width: 80%;
     border: none;
     border-radius: 40px;
-    background-color: #C0E0FF;
-    color: #2985E1;
+    background-color: #c0e0ff;
+    color: #2985e1;
 }
 
 .swiper-pagination {
