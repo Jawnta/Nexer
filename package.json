@@ -10,7 +10,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint --fix --max-warnings 10 \"src/**/*.{js,ts,vue}\"",
-    "prettier:check": "prettier --check '**/*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}'"
+    "prettier:check": "prettier --check '**/*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}'",
+    "prettier:write": "prettier --write '**/*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}'"
   },
   "dependencies": {
     "@vue-leaflet/vue-leaflet": "^0.8.3",
