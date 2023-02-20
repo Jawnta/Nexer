@@ -1,3 +1,4 @@
+<script setup lang="ts"></script>
 <template>
     <div>
         <button class="order-button">Beställ</button>

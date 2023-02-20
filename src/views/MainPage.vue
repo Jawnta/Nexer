@@ -15,7 +15,9 @@ import OrderButton from "@/components/OrderButton.vue";
         <Containers />
         <Calender @addDates="handleDates" />
         <MapContainer />
-        <UserInfo />
+        <UserInfo @userDetails="handleUserDetails" />
+        <!-- Knapp för att logga ut datapaketet nedan -->
+        <!-- <button @click="logThis">Logga ut Payloaden</button> -->
         <OrderButton />
     </div>
 </template>
@@ -32,6 +34,7 @@ import OrderButton from "@/components/OrderButton.vue";
 </style>
 
 <script lang="ts">
+import type { UserDetails, Payload } from "@/interfaces";
 export default {
     data() {
         return {
@@ -45,15 +48,25 @@ export default {
                 phoneNumber: "",
                 email: "",
                 address: "",
-                zipcode: "",
+                zipCode: "",
                 city: "",
-            },
+            } as Payload,
         };
     },
     methods: {
         handleDates(data: { deliveryDate: string; pickupDate: string }) {
             this.data.deliveryDate = data.deliveryDate;
             this.data.pickupDate = data.pickupDate;
+        },
+        handleUserDetails(userData: UserDetails) {
+            for (let key in userData) {
+                if (key in this.data) {
+                    this.data[key] = userData[key];
+                }
+            }
+        },
+        logThis() {
+            console.log(this.data);
         },
     },
 };

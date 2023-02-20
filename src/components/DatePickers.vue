@@ -5,7 +5,7 @@
     <div class="date-container">
         <!-- Delivery date -->
         <div class="date-column">
-            <label For="deliveryDate"> Levereras: </label>
+            <label For="deliveryDate" class="date-label">Leverans</label>
             <input
                 type="date"
                 id="deliveryDate"
@@ -16,7 +16,7 @@
         </div>
         <!-- Pickup date -->
         <div class="date-column">
-            <label for="pickupDate" class="date-label"> Hämtas: </label>
+            <label for="pickupDate" class="date-label">Upphämtning</label>
             <input
                 type="date"
                 id="pickupDate"
@@ -29,8 +29,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
-
 export default {
     async mounted() {},
 
@@ -50,6 +48,9 @@ export default {
 </script>
 
 <style scoped>
+.date-label {
+    margin-bottom: 10px;
+}
 .date-container {
     font-size: large;
     display: flex;
@@ -73,4 +74,5 @@ export default {
 .date-column {
     display: grid;
 }
+
 </style>

@@ -1,25 +1,54 @@
+<script setup lang="ts"></script>
 <template>
-    <h1>Din information</h1>
+    <h1>Dina uppgifter</h1>
     <div class="userinfo">
         <label>Förnamn</label>
-        <input v-model="firstName"><br>
+        <input v-model="userDetails.firstName" @input="handleChange" /><br />
         <label>Efternamn</label>
-        <input v-model="lastName"><br>
+        <input v-model="userDetails.lastName" @input="handleChange" /><br />
         <label>Personnummer</label>
-        <input v-model="ssn"><br>
+        <input
+            v-model="userDetails.socialSecurity"
+            @input="handleChange"
+        /><br />
         <label>Telefonnummer</label>
-        <input v-model="phone"><br>
+        <input v-model="userDetails.phoneNumber" @input="handleChange" /><br />
         <label>E-postadress</label>
-        <input v-model="email"><br>
+        <input v-model="userDetails.email" @input="handleChange" /><br />
         <label>Adress</label>
-        <input v-model="adress"><br>
+        <input v-model="userDetails.address" @input="handleChange" /><br />
         <label>Postnummer</label>
-        <input v-model="post"><br>
-        <label>Post-ort</label>
-        <input v-model="ort"><br>
+        <input v-model="userDetails.zipCode" @input="handleChange" /> <br />
+        <label>Postort</label>
+        <input v-model="userDetails.city" @input="handleChange" /> <br />
     </div>
 </template>
 
+<script lang="ts">
+export default {
+    async mounted() {},
+    emits: ["userDetails"],
+    methods: {
+        handleChange() {
+            this.$emit("userDetails", this.userDetails);
+        },
+    },
+    data() {
+        return {
+            userDetails: {
+                firstName: "",
+                lastName: "",
+                socialSecurity: "",
+                phoneNumber: "",
+                email: "",
+                address: "",
+                zipCode: "",
+                city: "",
+            },
+        };
+    },
+};
+</script>
 <style>
 .userinfo {
     text-align: left;

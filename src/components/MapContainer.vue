@@ -1,6 +1,8 @@
+<script setup lang="ts"></script>
 <template>
-    <h1>Leveransions plats</h1>
     <div class="map-view">
+        <h1>Containerplacering</h1>
+    <p class="placering-info">Ange placering för containern genom att sätta en markör.</p>
         <l-map ref="map" v-model:zoom="zoom" :center="center" :zoomControl="false" style="border-radius: 15px;">
         <l-tile-layer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -14,7 +16,6 @@
 
 <script lang="ts">
 import "leaflet/dist/leaflet.css";
-//@ts-ignore
 import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 
 export default {
@@ -56,5 +57,10 @@ export default {
     border-radius: 40px;
     background-color: #2C84D0;
     color: white;
+}
+
+.placering-info {
+    font-size: 16px;
+    margin: 0 0 10px 0;
 }
 </style>
