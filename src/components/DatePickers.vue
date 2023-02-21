@@ -5,7 +5,7 @@
     <div class="date-container">
         <!-- Delivery date -->
         <div class="date-column">
-            <label For="deliveryDate" class="date-label">Leverans</label>
+            <label For="deliveryDate" class="date-label">Datum för önskad leverans</label>
             <input
                 type="date"
                 id="deliveryDate"
@@ -16,7 +16,7 @@
         </div>
         <!-- Pickup date -->
         <div class="date-column">
-            <label for="pickupDate" class="date-label">Upphämtning</label>
+            <label for="pickupDate" class="date-label">Datum för hemtagning </label>
             <input
                 type="date"
                 id="pickupDate"
