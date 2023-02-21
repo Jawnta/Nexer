@@ -24,3 +24,18 @@ export interface Payload {
     city: string;
     [key: string]: any;
 }
+
+export interface ContainerCard {
+    emptyingFee: string;
+    dailyFee: string;
+    shortContainerInfo: string;
+    length: string;
+    width: string;
+    placementFee: string;
+    logo: any;
+    unsortedWaste: string;
+    title: string;
+    gardenWaste: string;
+    combustibleWaste: string;
+    height: string;
+}

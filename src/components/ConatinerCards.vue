@@ -6,7 +6,19 @@
             class="info-popup"
             :class="showInfo ? 'animation-in' : 'animation-out'"
         >
-            <p>{{ selectedCard.info }}</p>
+            <p>Längd: {{ selectedCard.length }}</p>
+            <p>Bredd: {{ selectedCard.width }}</p>
+            <p>Höjd: {{ selectedCard.height }}</p>
+            <p>{{ selectedCard.shortContainerInfo }}</p>
+            <h3>Pris inklusive moms</h3>
+            <p>Avgift per dag: {{ selectedCard.dailyFee }}</p>
+            <p>Utsättningsavgift: {{ selectedCard.placementFee }}</p>
+            <p>Tömningsavgift: {{ selectedCard.emptyingFee }}</p>
+            <p>+ rörlig del per ton (se pris nedan).</p>
+            <h3>Pris rörlig del inklusive moms</h3>
+            <p>Brännbart avfall: {{ selectedCard.combustibleWaste }}</p>
+            <p>Osorterat avfall: {{ selectedCard.unsortedWaste }}</p>
+            <p>Trädgårdsavfall: {{ selectedCard.gardenWaste }}</p>
             <button @click="showInfo = false">Close</button>
         </div>
     </transition>
@@ -24,6 +36,7 @@
                         alt="container-logo"
                     />
                     <h2>{{ card.title }}</h2>
+
                     <button class="get-button">+</button>
                     <button class="info-button" @click="showCardInfo(card)">
                         Pris & info
@@ -41,11 +54,7 @@ import "swiper/css/bundle";
 import container8 from "../assets/img/container_8.png";
 import container10 from "../assets/img/container_10.png";
 import container20 from "../assets/img/container_20.png";
-
-interface Card {
-    title: string;
-    info: string;
-}
+import type { ContainerCard } from "@/interfaces";
 
 export default {
     mounted() {
@@ -63,32 +72,58 @@ export default {
     data() {
         return {
             showInfo: false,
-            selectedCard: {} as Card,
+            selectedCard: {} as ContainerCard,
             cards: [
                 {
                     logo: container8,
                     title: "8 Kubikmeter",
-                    info: "This is some information for card #1",
+                    length: "3130 mm",
+                    width: "2074 mm",
+                    height: "1857 mm",
+                    shortContainerInfo:
+                        "Detta är en täckt container som är låsbar.",
+                    dailyFee: "33 kronor",
+                    placementFee: "525 kronor",
+                    emptyingFee: "800 kronor",
+                    combustibleWaste: "1731 kronor per ton",
+                    unsortedWaste: "2250 kronor per ton",
+                    gardenWaste: "363 kronor per ton",
                 },
                 {
                     logo: container10,
                     title: "10 Kubikmeter",
-                    info: "This is some information for card #2",
+                    length: "3300 mm",
+                    width: "1900 mm",
+                    height: "1800 mm",
+                    shortContainerInfo:
+                        "En öppen container där ena kortsidan är lägre för att det ska vara lättare att nå in.",
+                    dailyFee: "33 kronor",
+                    placementFee: "525 kronor",
+                    emptyingFee: "800 kronor",
+                    combustibleWaste: "1731 kronor per ton",
+                    unsortedWaste: "2250 kronor per ton",
+                    gardenWaste: "363 kronor per ton",
                 },
                 {
                     logo: container20,
                     title: "20 Kubikmeter",
-                    info: "This is some information for card #3",
+                    length: "6000 mm",
+                    width: "2550 mm",
+                    height: "1800 mm",
+                    shortContainerInfo:
+                        "Denna container är öppen upptill och har en öppningsbar kortsida.",
+                    dailyFee: "53 kronor",
+                    placementFee: "524 kronor",
+                    emptyingFee: "969 kronor",
+                    combustibleWaste: "1731 kronor per ton",
+                    unsortedWaste: "2250 kronor per ton",
+                    gardenWaste: "363 kronor per ton",
                 },
             ],
         };
     },
     methods: {
-        showCardInfo(
-            card:
-                | { logo: string; title: string; info: string }
-                | { title: string; info: string }
-        ) {
+        showCardInfo(card: ContainerCard) {
             this.selectedCard = card;
             this.showInfo = true;
         },
