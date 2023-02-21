@@ -25,6 +25,7 @@
 </template>
 
 <script lang="ts">
+
 export default {
     async mounted() {},
     emits: ["userDetails"],
@@ -54,6 +55,10 @@ export default {
     text-align: left;
     display: grid;
     margin-bottom: 30px;
+}
+
+.userinfo label {
+    margin-left: 5px;
 }
 
 .userinfo input {

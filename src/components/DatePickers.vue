@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-    <h1>Välj datum</h1>
+
     <div class="date-container">
         <!-- Delivery date -->
         <div class="date-column">
@@ -15,8 +15,10 @@
             />
         </div>
         <!-- Pickup date -->
+
         <div class="date-column">
             <label for="pickupDate" class="date-label">Datum för hemtagning </label>
+
             <input
                 type="date"
                 id="pickupDate"
@@ -49,11 +51,14 @@ export default {
 <style scoped>
 .date-label {
     margin-bottom: 10px;
+    margin-top: 20px;
+    width: 80%;
 }
 .date-container {
-    font-size: large;
     display: flex;
-    gap: 15px;
+    font-size: medium;
+    margin-bottom: 20px;
+    width: 90%;
 }
 
 .date-container input {
@@ -61,7 +66,7 @@ export default {
     background-color: white;
     box-shadow: #0000002e 3px 3px 20px;
     border: none;
-    width: 100px;
+    width: 110px;
     border-radius: 5px;
     padding: 5px;
 }
@@ -71,6 +76,8 @@ export default {
 }
 
 .date-column {
-    display: grid;
+    display: flex;
+    flex-flow: column wrap;
+    word-break: break-word;
 }
 </style>

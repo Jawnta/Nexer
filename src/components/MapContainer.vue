@@ -52,9 +52,9 @@ export default {
 
 <style>
 .map-view {
-    height: 300px;
+    height: 330px;
     width: 300px;
-    margin: 20px 0 20px 0;
+    margin-bottom: 20px;
 }
 
 .ar-button {

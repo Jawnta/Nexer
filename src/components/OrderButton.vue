@@ -13,6 +13,7 @@
     min-width: 250px;
     padding: 15px;
     margin-bottom: 50px;
+    margin-top: 50px;
     border: none;
     border-radius: 40px;
     background-color: #2c84d0;

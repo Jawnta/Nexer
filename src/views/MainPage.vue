@@ -14,10 +14,10 @@ import OrderButton from "@/components/OrderButton.vue";
         <TopHeader />
         <Containers />
         <Calender @addDates="handleDates" />
-        <MapContainer />
         <UserInfo @userDetails="handleUserDetails" />
         <!-- Knapp för att logga ut datapaketet nedan -->
         <!-- <button @click="logThis">Logga ut Payloaden</button> -->
+        <MapContainer />
         <OrderButton />
     </div>
 </template>
