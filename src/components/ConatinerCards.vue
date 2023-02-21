@@ -137,14 +137,14 @@ export default {
     width: 90%;
     margin-bottom: 40px;
     position: relative;
-    height: 460px;
+    /* height: 460px; */
     border-radius: 24px;
 }
 
 .swiper-slide {
     display: flex;
     width: 100%;
-    height: 460px;
+    /* height: 460px; */
     background-color: white;
     box-shadow: #00000020 10px 10px 40px;
     border-radius: 24px;
@@ -155,7 +155,6 @@ export default {
     justify-items: center;
     width: 100%;
     margin: 50px 20px 20px;
-    height: 10px;
     word-break: break-word;
 }
 
@@ -192,7 +191,8 @@ export default {
     text-align: center;
     margin: 20px;
     width: 90vw;
-    height: 80vh;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background: white;
     box-shadow: #00000028 4px 4px 20px;
     border-radius: 24px;
