@@ -53,13 +53,12 @@ export default {
 .date-label {
     margin-bottom: 10px;
     margin-top: 20px;
-    width: 80%;
 }
 .date-container {
     display: flex;
     font-size: medium;
     margin-bottom: 20px;
-    width: 90%;
+    gap: 40px;
 }
 
 .date-container input {
@@ -80,5 +79,6 @@ export default {
     display: flex;
     flex-flow: column wrap;
     word-break: break-word;
+    width: min-content;
 }
 </style>
