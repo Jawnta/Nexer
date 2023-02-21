@@ -1,11 +1,12 @@
 <script setup lang="ts"></script>
 
 <template>
-
     <div class="date-container">
         <!-- Delivery date -->
         <div class="date-column">
-            <label For="deliveryDate" class="date-label">Datum för önskad leverans</label>
+            <label For="deliveryDate" class="date-label"
+                >Datum för önskad leverans</label
+            >
             <input
                 type="date"
                 id="deliveryDate"
@@ -17,7 +18,7 @@
         <!-- Pickup date -->
 
         <div class="date-column">
-            <label for="pickupDate" class="date-label">Datum för hemtagning </label>
+            <label for="pickupDate" class="date-label">Datum för hemtagning</label>
 
             <input
                 type="date"
