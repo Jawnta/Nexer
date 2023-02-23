@@ -51,6 +51,9 @@ export default {
 </script>
 
 <style>
+.leaflet-control-attribution a {
+    display: none;
+}
 .map-view {
     height: 330px;
     width: 300px;
