@@ -18,7 +18,9 @@
         <!-- Pickup date -->
 
         <div class="date-column">
-            <label for="pickupDate" class="date-label">Datum för hemtagning</label>
+            <label for="pickupDate" class="date-label"
+                >Datum för hemtagning</label
+            >
 
             <input
                 type="date"
