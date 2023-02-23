@@ -6,6 +6,7 @@ import Calender from "@/components/DatePickers.vue";
 import MapContainer from "@/components/MapContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import OrderButton from "@/components/OrderButton.vue";
+import ArButton from "@/components/ArButton.vue";
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import OrderButton from "@/components/OrderButton.vue";
         <!-- Knapp för att logga ut datapaketet nedan -->
         <!-- <button @click="logThis">Logga ut Payloaden</button> -->
         <MapContainer />
+        <ArButton />
         <OrderButton />
     </div>
 </template>
