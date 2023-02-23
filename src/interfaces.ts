@@ -22,6 +22,7 @@ export interface Payload {
     address: string;
     zipCode: string;
     city: string;
+    message: string;
     [key: string]: any;
 }
 
