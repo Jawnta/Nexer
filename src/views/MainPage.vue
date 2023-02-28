@@ -11,32 +11,17 @@ import MessageBox from "@/components/MessageBox.vue";
 </script>
 
 <template>
-    <div class="main-wrapper">
-        <TopLogo />
-        <TopHeader />
-        <Containers />
-        <Calender @addDates="handleDates" />
-        <UserInfo @userDetails="handleUserDetails" />
-        <MessageBox @message="handleMessage" />
-        <!-- Knapp för att logga ut datapaketet nedan -->
-        <!-- <button @click="logThis">Logga ut Payloaden</button>-->
-        <MapContainer />
-        <ArButton />
-
-        <OrderButton />
-    </div>
+    <TopHeader />
+    <Containers />
+    <Calender @addDates="handleDates" />
+    <UserInfo @userDetails="handleUserDetails" />
+    <MessageBox @message="handleMessage" />
+<!--     Knapp för att logga ut datapaketet nedan-->
+<!--     <button @click="logThis">Logga ut Payloaden</button>-->
+    <MapContainer />
+    <ArButton />
+    <OrderButton />
 </template>
-
-<style scoped>
-.main-wrapper {
-    padding: 25px;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    background: #e2e2e2;
-    overflow: hidden;
-}
-</style>
 
 <script lang="ts">
 import type { UserDetails, Payload } from "@/interfaces";
