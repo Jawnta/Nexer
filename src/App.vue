@@ -34,5 +34,6 @@ button {
     align-items: center;
     background: #e2e2e2;
     overflow: hidden;
+    min-height: 100vh;
 }
 </style>

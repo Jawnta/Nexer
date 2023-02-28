@@ -25,7 +25,6 @@
 </template>
 
 <script lang="ts">
-
 export default {
     async mounted() {},
     emits: ["userDetails"],

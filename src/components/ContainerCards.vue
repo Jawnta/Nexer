@@ -37,7 +37,15 @@
                     />
                     <h2>{{ card.title }}</h2>
 
-                    <button class="get-button">+</button>
+                    <button
+                        :class="{
+                            'get-button': true,
+                            selected: index === selectedCardIndex,
+                        }"
+                        @click="selectCard(card, index)"
+                    >
+                        {{ getButtonText(index) }}
+                    </button>
                     <button class="info-button" @click="showCardInfo(card)">
                         Pris & info
                     </button>
@@ -57,6 +65,7 @@ import container20 from "../assets/img/container_20.png";
 import type { ContainerCard } from "@/interfaces";
 
 export default {
+    emits: ["selectedContainer"],
     mounted() {
         new Swiper(".swiper-container", {
             slidesPerView: "auto",
@@ -72,6 +81,7 @@ export default {
     data() {
         return {
             showInfo: false,
+            selectedCardIndex: -1,
             selectedCard: {} as ContainerCard,
             cards: [
                 {
@@ -123,9 +133,20 @@ export default {
         };
     },
     methods: {
+        logMe() {
+            console.log(this.selectedCard);
+        },
         showCardInfo(card: ContainerCard) {
             this.selectedCard = card;
             this.showInfo = true;
+        },
+        selectCard(card: ContainerCard, index: number) {
+            this.selectedCardIndex = index;
+            this.selectedCard = card;
+            this.$emit("selectedContainer", this.selectedCard);
+        },
+        getButtonText(index: number) {
+            return index === this.selectedCardIndex ? "✓" : "+";
         },
     },
 };
@@ -169,6 +190,7 @@ export default {
     box-shadow: #00000028 4px 4px 20px;
     background-color: #2c84d0;
     color: white;
+    min-height: 62px;
 }
 
 .info-button,
@@ -223,5 +245,10 @@ export default {
     to {
         transform: translateX(-100%);
     }
+}
+
+.selected {
+    background: #7534ff;
+    min-height: 62px;
 }
 </style>

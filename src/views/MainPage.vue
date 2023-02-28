@@ -11,19 +11,19 @@ import MessageBox from "@/components/MessageBox.vue";
 
 <template>
     <TopHeader />
-    <Containers />
+    <Containers @selectedContainer="handleContainer" />
     <Calender @addDates="handleDates" />
     <UserInfo @userDetails="handleUserDetails" />
     <MessageBox @message="handleMessage" />
-<!--     Knapp för att logga ut datapaketet nedan-->
-<!--     <button @click="logThis">Logga ut Payloaden</button>-->
+    <!--         Knapp för att logga ut datapaketet nedan-->
+    <!--         <button @click="logThis">Logga ut Payloaden</button>-->
     <MapContainer />
     <ArButton />
-    <OrderButton />
+    <OrderButton :payload="payload" />
 </template>
 
 <script lang="ts">
-import type { UserDetails, Payload } from "@/interfaces";
+import type { UserDetails, Payload, ContainerCard } from "@/interfaces";
 export default {
     data() {
         return {
@@ -40,6 +40,7 @@ export default {
                 zipCode: "",
                 city: "",
                 message: "",
+                selectedContainer: {},
             } as Payload,
         };
     },
@@ -58,8 +59,16 @@ export default {
         handleMessage(message: string) {
             this.data.message = message;
         },
+        handleContainer(container: ContainerCard) {
+            this.data.selectedContainer = container;
+        },
         logThis() {
             console.log(this.data);
+        },
+    },
+    computed: {
+        payload(): Payload {
+            return this.data;
         },
     },
 };

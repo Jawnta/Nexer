@@ -23,6 +23,7 @@ export interface Payload {
     zipCode: string;
     city: string;
     message: string;
+    selectedContainer: ContainerCard;
     [key: string]: any;
 }
 
@@ -39,4 +40,8 @@ export interface ContainerCard {
     gardenWaste: string;
     combustibleWaste: string;
     height: string;
+}
+
+export interface PayloadQuery extends Payload {
+    payload: string;
 }
