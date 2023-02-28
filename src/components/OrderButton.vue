@@ -1,7 +1,14 @@
 <script setup lang="ts"></script>
 <template>
     <div>
-        <button class="order-button">Beställ</button>
+        <router-link
+            :to="{
+                name: 'OrderConfirmation',
+                query: { payload: JSON.stringify(this.$props.payload) },
+            }"
+        >
+            <button class="order-button">Beställ</button>
+        </router-link>
     </div>
 </template>
 
@@ -20,3 +27,15 @@
     color: white;
 }
 </style>
+
+<script lang="ts">
+import type { Payload } from "@/interfaces";
+export default {
+    props: {
+        payload: {
+            type: Object as () => Payload,
+            required: true,
+        },
+    },
+};
+</script>

@@ -23,6 +23,7 @@ export interface Payload {
     zipCode: string;
     city: string;
     message: string;
+    selectedContainer: ContainerCard;
     [key: string]: any;
 }
 
