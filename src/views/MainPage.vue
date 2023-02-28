@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import TopLogo from "@/components/TopLogo.vue";
 import TopHeader from "@/components/TopHeader.vue";
 import Containers from "@/components/ContainerCards.vue";
 import Calender from "@/components/DatePickers.vue";
