@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import TopLogo from "@/components/TopLogo.vue";
 import TopHeader from "@/components/TopHeader.vue";
-import Containers from "@/components/ConatinerCards.vue";
+import Containers from "@/components/ContainerCards.vue";
 import Calender from "@/components/DatePickers.vue";
 import MapContainer from "@/components/MapContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import OrderButton from "@/components/OrderButton.vue";
 import ArButton from "@/components/ArButton.vue";
+import MessageBox from "@/components/MessageBox.vue";
 </script>
 
 <template>
@@ -16,10 +17,12 @@ import ArButton from "@/components/ArButton.vue";
         <Containers />
         <Calender @addDates="handleDates" />
         <UserInfo @userDetails="handleUserDetails" />
+        <MessageBox @message="handleMessage" />
         <!-- Knapp för att logga ut datapaketet nedan -->
-        <button @click="logThis">Logga ut Payloaden</button>
+        <!-- <button @click="logThis">Logga ut Payloaden</button>-->
         <MapContainer />
         <ArButton />
+
         <OrderButton />
     </div>
 </template>
@@ -52,6 +55,7 @@ export default {
                 address: "",
                 zipCode: "",
                 city: "",
+                message: "",
             } as Payload,
         };
     },
@@ -66,6 +70,9 @@ export default {
                     this.data[key] = userData[key];
                 }
             }
+        },
+        handleMessage(message: string) {
+            this.data.message = message;
         },
         logThis() {
             console.log(this.data);
