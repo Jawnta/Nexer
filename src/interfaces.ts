@@ -41,3 +41,7 @@ export interface ContainerCard {
     combustibleWaste: string;
     height: string;
 }
+
+export interface PayloadQuery extends Payload {
+    payload: string;
+}

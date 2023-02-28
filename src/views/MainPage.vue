@@ -19,7 +19,7 @@ import MessageBox from "@/components/MessageBox.vue";
     <!--         <button @click="logThis">Logga ut Payloaden</button>-->
     <MapContainer />
     <ArButton />
-    <OrderButton :payload="this.data" />
+    <OrderButton :payload="payload" />
 </template>
 
 <script lang="ts">
@@ -64,6 +64,11 @@ export default {
         },
         logThis() {
             console.log(this.data);
+        },
+    },
+    computed: {
+        payload(): Payload {
+            return this.data;
         },
     },
 };

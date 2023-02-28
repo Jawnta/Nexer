@@ -1,16 +1,32 @@
-<script setup lang="ts"></script>
 <template>
     <div>
-        <router-link
-            :to="{
-                name: 'OrderConfirmation',
-                query: { payload: JSON.stringify(this.$props.payload) },
-            }"
-        >
-            <button class="order-button">Beställ</button>
-        </router-link>
+        <button class="order-button" @click="handleClick">Beställ</button>
     </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import type { Payload } from "@/interfaces";
+
+export default defineComponent({
+    name: "OrderButton",
+    props: {
+        payload: {
+            type: Object as () => Payload,
+            required: true,
+        },
+    },
+    methods: {
+        handleClick() {
+            const payloadString = JSON.stringify(this.$props.payload);
+            this.$router.push({
+                name: "OrderConfirmation",
+                query: { payload: payloadString },
+            });
+        },
+    },
+});
+</script>
 
 <style>
 .order-button {
@@ -27,15 +43,3 @@
     color: white;
 }
 </style>
-
-<script lang="ts">
-import type { Payload } from "@/interfaces";
-export default {
-    props: {
-        payload: {
-            type: Object as () => Payload,
-            required: true,
-        },
-    },
-};
-</script>
