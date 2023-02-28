@@ -17,7 +17,7 @@ import ArButton from "@/components/ArButton.vue";
         <Calender @addDates="handleDates" />
         <UserInfo @userDetails="handleUserDetails" />
         <!-- Knapp för att logga ut datapaketet nedan -->
-        <!-- <button @click="logThis">Logga ut Payloaden</button> -->
+        <button @click="logThis">Logga ut Payloaden</button>
         <MapContainer />
         <ArButton />
         <OrderButton />
