@@ -6,6 +6,12 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    optimizeDeps: {
+        include: [
+          "@fawmi/vue-google-maps",
+          "fast-deep-equal",
+        ],
+    },
     plugins: [vue()],
     resolve: {
         alias: {
