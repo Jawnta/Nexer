@@ -1,75 +1,53 @@
-<script setup lang="ts"></script>
 <template>
     <div class="map-view">
         <h1>Containerplacering</h1>
         <p class="placering-info">
             Ange placering för containern genom att sätta en markör.
         </p>
-        <l-map
-            ref="map"
-            v-model:zoom="zoom"
+        <GMapMap
+            ref="myMarker"
             :center="center"
-            :zoomControl="false"
-            style="border-radius: 15px"
+            :zoom="10"
+            map-type-id="terrain"
+            style="height: 300px; border-radius: 10px;"
         >
-            <l-tile-layer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                layer-type="base"
-                name="OpenStreetMap"
-            ></l-tile-layer>
-        </l-map>
+            <GMapMarker
+            :key="index"
+            v-for="(m, index) in markers"
+            :position="m.position"
+            :icon="'../src/assets/img/container_icon.png'"
+            :clickable="true"
+            :draggable="true"
+            />
+        </GMapMap>
+
     </div>
-    <button class="ar-button">Ta bild med AR</button>
 </template>
 
 <script lang="ts">
-import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 
 export default {
-    mounted() {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.center = [
-                    position.coords.latitude,
-                    position.coords.longitude,
-                ];
-            });
-        }
-    },
-    components: {
-        LMap,
-        LTileLayer,
-    },
+    name: 'App',
     data() {
         return {
-            zoom: 15,
-            center: [56.16156, 15.58661],
-        };
+            center: {lat: 56.16156, lng: 15.58661},
+            markers: [
+                {
+                position: {
+                    lat: 56.16156, lng: 15.58661
+                },
+                }
+            ]
+        }
     },
-};
+}
+
 </script>
 
 <style>
-.leaflet-control-attribution a {
-    display: none;
-}
 .map-view {
-    height: 330px;
     width: 300px;
     margin-bottom: 20px;
-}
-
-.ar-button {
-    box-shadow: #00000020 10px 10px 40px;
-    cursor: pointer;
-    min-width: 250px;
-    padding: 15px;
-    margin-bottom: 50px;
-    border: none;
-    border-radius: 40px;
-    background-color: #2c84d0;
-    color: white;
 }
 
 .placering-info {

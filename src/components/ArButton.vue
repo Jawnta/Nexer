@@ -17,13 +17,18 @@ import ArIcon from "../assets/img/AR.png";
 <style>
 .ar-wrapper {
     display: flex;
-    width: 100%;
+    align-items: center;
     flex-flow: column wrap;
 }
 
 .ar-wrapper img {
     width: 40px;
     height: 40px;
+}
+
+.ar-wrapper p {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
 }
 
 .ar-button {
@@ -43,8 +48,4 @@ import ArIcon from "../assets/img/AR.png";
     color: white;
 }
 
-.ar-wrapper p {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 14px;
-}
 </style>
