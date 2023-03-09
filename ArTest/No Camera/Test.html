@@ -11,21 +11,21 @@
 
   </head>
   <body>
-    <a-scene cursor="rayOrigin: mouse">
+    <a-scene cursor="rayOrigin: mouse" ar-hit-test="target:#my-objects;type:footprint;footprintDepth:0.2;">
       <!-- Asset Management System -->
         <a-assets>
           <a-asset-item id="6mContainer" src="/Assets/container/6m/gltf/6m.gltf"></a-asset-item>
           <img id="greenPavement" src="/Assets/Textures/TexturesCom_Pavement_StoneGreen_header.jpg">
-        
+          
         </a-assets>
-
+        
         <a-entity gltf-model="#6mContainer"
                 position="0 0 -5"
                 rotation="0 0 0"
                 scale="0.01 0.01 0.01"
                 target-marker
                 mover
-                animation="property: rotation; to: 0 360 0; easing: linear; dur:10000; loop:true">
+                animation="property: rotation; to: 0 360 0; easing: linear; dur:10000; loop:false">
         </a-entity>
         <a-plane material="color: #FFFFFF;
                 src: #greenPavement;
@@ -38,14 +38,14 @@
                 return-emitter>
           </a-plane>
 
-          <a-box position="2 0 -2" color="#3b9731" target-marker animation="property: rotation; to: 0 360 0; easing: linear; dur:5000; loop:true"></a-box>
+          <!-- <a-box position="2 0 -2" color="#3b9731" target-marker animation="property: rotation; to: 0 360 0; easing: linear; dur:5000; loop:true"></a-box> -->
 
-          <a-box position="0 0 -2" color="#3b9731" color-toggle></a-box>
+          <!-- <a-box position="0 0 -2" color="#3b9731" color-toggle></a-box> -->
 
 
-          <a-box position="5 0 -4" color="#3b9731" return-emitter></a-box>
+          <!-- <a-box position="5 0 -4" color="#3b9731" return-emitter></a-box> -->
 
-          <a-box position="-5 0 -4" color="#3b9731" return-emitter></a-box>
+          <!-- <a-box position="-5 0 -4" color="#3b9731" return-emitter></a-box> -->
 
           <a-entity id="rig">
 
@@ -55,6 +55,11 @@
 
             </a-entity>
 
+      
+  </a-scene>
+  </div>
+</body>
+</html>
           </a-entity>
 
           
