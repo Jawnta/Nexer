@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style>
+.gmnoprint  {
+ display: none;
+}
 .map-view {
     width: 300px;
     margin-bottom: 20px;
@@ -53,5 +56,8 @@ export default {
 .placering-info {
     font-size: 16px;
     margin: 0 0 10px 0;
+}
+.vue-map {
+    border-radius: 25px;
 }
 </style>
