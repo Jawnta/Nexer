@@ -9,39 +9,37 @@
             :center="center"
             :zoom="10"
             map-type-id="terrain"
-            style="height: 300px; border-radius: 10px;"
+            style="height: 300px; border-radius: 10px"
         >
             <GMapMarker
-            :key="index"
-            v-for="(m, index) in markers"
-            :position="m.position"
-            :icon="'../src/assets/img/container_icon.png'"
-            :clickable="true"
-            :draggable="true"
+                :key="index"
+                v-for="(m, index) in markers"
+                :position="m.position"
+                :icon="'../src/assets/img/container_icon.png'"
+                :clickable="true"
+                :draggable="true"
             />
         </GMapMap>
-
     </div>
 </template>
 
 <script lang="ts">
-
 export default {
-    name: 'App',
+    name: "App",
     data() {
         return {
-            center: {lat: 56.16156, lng: 15.58661},
+            center: { lat: 56.16156, lng: 15.58661 },
             markers: [
                 {
-                position: {
-                    lat: 56.16156, lng: 15.58661
+                    position: {
+                        lat: 56.16156,
+                        lng: 15.58661,
+                    },
                 },
-                }
-            ]
-        }
+            ],
+        };
     },
-}
-
+};
 </script>
 
 <style>
