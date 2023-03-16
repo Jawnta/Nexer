@@ -3,7 +3,7 @@ import ArIcon from "../assets/img/AR.png";
 </script>
 <template>
     <div class="ar-wrapper">
-        <button class="ar-button">
+        <button class="ar-button" @click="handleClick">
             Ta bild med AR
             <img :src="ArIcon" style="width: inherit" alt="container-logo" />
         </button>
@@ -13,6 +13,20 @@ import ArIcon from "../assets/img/AR.png";
         </p>
     </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+    methods: {
+        handleClick() {
+            this.$router.push({
+                name: "ArTest",
+            });
+        },
+    },
+});
+</script>
 
 <style>
 .ar-wrapper {
@@ -47,5 +61,4 @@ import ArIcon from "../assets/img/AR.png";
     background-color: #2c84d0;
     color: white;
 }
-
 </style>
