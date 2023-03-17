@@ -50,7 +50,18 @@ export default {
 };
 </script>
 <style>
+.userinfo input
+    {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #919191;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    padding: 6px 12px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 .userinfo {
+    width: 100%;
     text-align: left;
     display: grid;
     margin-bottom: 30px;
@@ -58,15 +69,17 @@ export default {
 
 .userinfo label {
     margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .userinfo input {
-    font-weight: bold;
-    box-shadow: #00000028 4px 4px 40px;
-    border: #cccccc solid 1px;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
+    border: 2px solid #ededed;
+    border-radius: 6px;
+    box-shadow: none;
+    color: #1e1e1e;
+    font-family: Inter-400,sans-serif;
+    font-size: 1rem;
+    height: 3rem;
 }
 
 .userinfo input:focus {

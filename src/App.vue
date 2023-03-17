@@ -32,7 +32,7 @@ button {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
-    background: #e2e2e2;
+    background: #f5f5f5;
     overflow: hidden;
     min-height: 100vh;
 }
