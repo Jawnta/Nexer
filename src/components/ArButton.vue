@@ -21,7 +21,7 @@ export default defineComponent({
     methods: {
         handleClick() {
             this.$router.push({
-                name: "ArTest",
+                name: "ArMain",
             });
         },
     },
