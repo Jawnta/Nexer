@@ -58,6 +58,9 @@ export default {
 </script>
 
 <style>
+.gmnoprint  {
+ display: none;
+}
 .map-view {
     width: 300px;
     margin-bottom: 20px;

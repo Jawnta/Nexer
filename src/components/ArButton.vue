@@ -21,7 +21,7 @@ export default defineComponent({
     methods: {
         handleClick() {
             this.$router.push({
-                name: "ArTest",
+                name: "ArMain",
             });
         },
     },
@@ -36,8 +36,10 @@ export default defineComponent({
 }
 
 .ar-wrapper img {
-    width: 40px;
+    width: 40px !important;
     height: 40px;
+    margin-left: 3px;
+
 }
 
 .ar-wrapper p {
@@ -46,19 +48,23 @@ export default defineComponent({
 }
 
 .ar-button {
+    font-weight: medium;
+    width: 100%;
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: #00000020 10px 10px 40px;
+    background: #2C84D0;
+    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 32px;
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 1em;
     min-width: 250px;
     padding: 15px;
     margin-bottom: 5px;
     margin-top: 40px;
     border: none;
     border-radius: 40px;
-    background-color: #2c84d0;
     color: white;
 }
 </style>

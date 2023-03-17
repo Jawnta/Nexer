@@ -10,7 +10,7 @@ export default defineConfig({
         include: ["@fawmi/vue-google-maps", "fast-deep-equal"],
         exclude: ["stream", "os"],
     },
-    plugins: [vue()],
+    plugins: [vue(), basicSsl()],
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),

@@ -30,7 +30,7 @@
                 class="swiper-slide"
             >
                 <div class="content">
-                    <img
+                    <img class="container-image"
                         :src="card.logo"
                         style="width: inherit"
                         alt="container-logo"
@@ -47,8 +47,7 @@
                         {{ getButtonText(index) }}
                     </button>
                     <button class="info-button" @click="showCardInfo(card)">
-                        Pris & info
-                    </button>
+                        För mer information kring containern                    </button>
                 </div>
             </div>
         </div>
@@ -155,7 +154,8 @@ export default {
 <style scoped>
 .swiper-container {
     display: flex;
-    width: 90%;
+    width: 80%;
+    height: 460px;
     margin-bottom: 40px;
     position: relative;
     /* height: 460px; */
