@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { usePayloadStore } from "@/store/orderStore";
+const payloadStore = usePayloadStore();
+</script>
 
 <template>
     <div class="date-container">
@@ -11,8 +14,7 @@
                 type="date"
                 id="deliveryDate"
                 name="deliveryDate"
-                v-model="dates.deliveryDate"
-                @input="handleChange"
+                v-model="payloadStore.deliveryDate"
             />
         </div>
         <!-- Pickup date -->
@@ -26,30 +28,11 @@
                 type="date"
                 id="pickupDate"
                 name="pickupDate"
-                v-model="dates.pickupDate"
-                @input="handleChange"
+                v-model="payloadStore.pickupDate"
             />
         </div>
     </div>
 </template>
-
-<script lang="ts">
-export default {
-    async mounted() {},
-
-    emits: ["addDates"],
-    methods: {
-        handleChange() {
-            this.$emit("addDates", this.dates);
-        },
-    },
-    data() {
-        return {
-            dates: { deliveryDate: "", pickupDate: "" },
-        };
-    },
-};
-</script>
 
 <style scoped>
 .date-label {
@@ -77,12 +60,12 @@ export default {
     outline: rgb(151, 149, 149) solid 1px;
 }
 
-input[type="date"]{
+input[type="date"] {
     font-family: "ubuntu", serif;
     background-color: white;
     width: 110px;
     padding: 7px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 10px 10px 34px rgba(49, 49, 49, 0.1);
     border-radius: 12px;
 }

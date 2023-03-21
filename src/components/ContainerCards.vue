@@ -30,7 +30,8 @@
                 class="swiper-slide"
             >
                 <div class="content">
-                    <img class="container-image"
+                    <img
+                        class="container-image"
                         :src="card.logo"
                         style="width: inherit"
                         alt="container-logo"
@@ -47,7 +48,8 @@
                         {{ getButtonText(index) }}
                     </button>
                     <button class="info-button" @click="showCardInfo(card)">
-                        För mer information kring containern                    </button>
+                        För mer information kring containern
+                    </button>
                 </div>
             </div>
         </div>
@@ -62,9 +64,10 @@ import container8 from "../assets/img/container_8.png";
 import container10 from "../assets/img/container_10.png";
 import container20 from "../assets/img/container_20.png";
 import type { ContainerCard } from "@/interfaces";
+import { usePayloadStore } from "@/store/orderStore";
+
 
 export default {
-    emits: ["selectedContainer"],
     mounted() {
         new Swiper(".swiper-container", {
             slidesPerView: "auto",
@@ -132,17 +135,15 @@ export default {
         };
     },
     methods: {
-        logMe() {
-            console.log(this.selectedCard);
-        },
         showCardInfo(card: ContainerCard) {
             this.selectedCard = card;
             this.showInfo = true;
         },
         selectCard(card: ContainerCard, index: number) {
+            const payloadStore = usePayloadStore();
             this.selectedCardIndex = index;
             this.selectedCard = card;
-            this.$emit("selectedContainer", this.selectedCard);
+            payloadStore.selectedContainer = this.selectedCard;
         },
         getButtonText(index: number) {
             return index === this.selectedCardIndex ? "✓" : "+";
