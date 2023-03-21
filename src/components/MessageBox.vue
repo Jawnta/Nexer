@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { usePayloadStore } from "@/store/orderStore";
+const payloadStore = usePayloadStore();
+</script>
 <template>
     <div class="message-box">
         <label>Meddelande</label>
-        <textarea v-model="message" @input="handleChange"></textarea>
+        <textarea v-model="payloadStore.message"></textarea>
     </div>
 </template>
 
@@ -13,7 +16,6 @@
     flex-flow: column wrap;
     width: 100%;
     margin-bottom: 24px;
-
 }
 .message-box label {
     margin-left: 5px;
@@ -21,15 +23,14 @@
 }
 
 .message-box textarea {
-    
     background-color: #fff;
     background-image: none;
     border: 1px solid #919191;
     border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     padding: 12px 12px;
     height: 220px;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .message-box textarea {
@@ -37,24 +38,7 @@
     border-radius: 6px;
     box-shadow: none;
     color: #1e1e1e;
-    font-family: Inter-400,sans-serif;
+    font-family: Inter-400, sans-serif;
     font-size: 1rem;
-
 }
 </style>
-
-<script lang="ts">
-export default {
-    emits: ["message"],
-    methods: {
-        handleChange() {
-            this.$emit("message", this.message);
-        },
-    },
-    data() {
-        return {
-            message: "",
-        };
-    },
-};
-</script>

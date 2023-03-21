@@ -1,64 +1,40 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { usePayloadStore } from "@/store/orderStore";
+const payloadStore = usePayloadStore();
+</script>
 <template>
     <h1>Dina uppgifter</h1>
     <div class="userinfo">
         <label>Förnamn</label>
-        <input v-model="userDetails.firstName" @input="handleChange" /><br />
+        <input v-model="payloadStore.firstName" /><br />
         <label>Efternamn</label>
-        <input v-model="userDetails.lastName" @input="handleChange" /><br />
+        <input v-model="payloadStore.lastName" /><br />
         <label>Personnummer</label>
         <input
-            v-model="userDetails.socialSecurity"
-            @input="handleChange"
+            v-model="payloadStore.socialSecurity"
         /><br />
         <label>Telefonnummer</label>
-        <input v-model="userDetails.phoneNumber" @input="handleChange" /><br />
+        <input v-model="payloadStore.phoneNumber" /><br />
         <label>E-postadress</label>
-        <input v-model="userDetails.email" @input="handleChange" /><br />
+        <input v-model="payloadStore.email" /><br />
         <label>Adress</label>
-        <input v-model="userDetails.address" @input="handleChange" /><br />
+        <input v-model="payloadStore.address" /><br />
         <label>Postnummer</label>
-        <input v-model="userDetails.zipCode" @input="handleChange" /> <br />
+        <input v-model="payloadStore.zipCode" /> <br />
         <label>Postort</label>
-        <input v-model="userDetails.city" @input="handleChange" /> <br />
+        <input v-model="payloadStore.city" /> <br />
     </div>
 </template>
 
-<script lang="ts">
-export default {
-    async mounted() {},
-    emits: ["userDetails"],
-    methods: {
-        handleChange() {
-            this.$emit("userDetails", this.userDetails);
-        },
-    },
-    data() {
-        return {
-            userDetails: {
-                firstName: "",
-                lastName: "",
-                socialSecurity: "",
-                phoneNumber: "",
-                email: "",
-                address: "",
-                zipCode: "",
-                city: "",
-            },
-        };
-    },
-};
-</script>
 <style>
-.userinfo input
-    {
+.userinfo input {
     background-color: #fff;
     background-image: none;
     border: 1px solid #919191;
     border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     padding: 6px 12px;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .userinfo {
     width: 100%;
@@ -77,7 +53,7 @@ export default {
     border-radius: 6px;
     box-shadow: none;
     color: #1e1e1e;
-    font-family: Inter-400,sans-serif;
+    font-family: Inter-400, sans-serif;
     font-size: 1rem;
     height: 3rem;
 }

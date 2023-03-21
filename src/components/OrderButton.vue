@@ -1,43 +1,83 @@
 <template>
     <div>
-        <button class="order-button" @click="() => {handleClick();sendEmail();}">Beställ</button>
+        <button
+            class="order-button"
+            @click="
+                () => {
+                    handleClick();
+                    sendAdminEmail();
+                }
+            "
+        >
+            Beställ
+        </button>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import type { Payload } from "@/interfaces";
 import emailjs from "emailjs-com";
+import { usePayloadStore } from "@/store/orderStore";
 
 export default defineComponent({
     mounted() {
         emailjs.init("aJoppP8gvteb65_ur");
     },
     name: "OrderButton",
-    props: {
-        payload: {
-            type: Object as () => Payload,
-            required: true,
-        },
-    },
+
     methods: {
         handleClick() {
-            const payloadString = JSON.stringify(this.$props.payload);
-            this.$router.push({
-                name: "OrderConfirmation",
-                query: { payload: payloadString },
-            });
+            // const payloadStore = usePayloadStore();
+            this.$router.push("/OrderConfirmation");
+            // this.$router.push({
+            //     name: "OrderConfirmation",
+            // });
         },
-        sendEmail() {
+        // sendEmail() {
+        //     emailjs
+        //         .send(
+        //             "service_ne3xu3v",
+        //             "template_chpkccp",
+        //             {
+        //                 to_name: "Recipient Name",
+        //                 from_name: "Your Name",
+        //                 message:
+        //                     "This is a test email sent from Vue.js using EmailJS and Gmailaaaaaaaaaaaa.",
+        //                 to_email: "jawntalol@gmail.com",
+        //             },
+        //             "aJoppP8gvteb65_ur"
+        //         )
+        //         .then(
+        //             function (response) {
+        //                 console.log("SUCCESS!", response.status, response.text);
+        //             },
+        //             function (error) {
+        //                 console.log("FAILED...", error);
+        //             }
+        //         );
+        // },
+        sendAdminEmail() {
+            const payloadStore = usePayloadStore();
             emailjs
                 .send(
                     "service_ne3xu3v",
-                    "template_chpkccp",
+                    "template_1e44wa8",
                     {
-                        to_name: "Recipient Name",
-                        from_name: "Your Name",
-                        message:
-                            "This is a test email sent from Vue.js using EmailJS and Gmailaaaaaaaaaaaa.",
+                        deliveryDate: payloadStore.deliveryDate,
+                        pickupDate: payloadStore.pickupDate,
+                        firstname: payloadStore.firstName,
+                        lastname: payloadStore.lastName,
+                        socialSecurity: payloadStore.socialSecurity,
+                        phoneNumber: payloadStore.phoneNumber,
+                        email: payloadStore.email,
+                        address: payloadStore.address,
+                        zipcode: payloadStore.zipCode,
+                        city: payloadStore.city,
+                        title: payloadStore.selectedContainer?.title || "",
+                        length: payloadStore.selectedContainer?.length || 0,
+                        width: payloadStore.selectedContainer?.width || "",
+                        height: payloadStore.selectedContainer?.height || "",
+
                         to_email: "jawntalol@gmail.com",
                     },
                     "aJoppP8gvteb65_ur"
@@ -63,8 +103,8 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2C84D0;
-    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.2);
+    background: #2c84d0;
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
     border-radius: 32px;
     cursor: pointer;
     font-size: 17px;
@@ -73,7 +113,6 @@ export default defineComponent({
     margin-bottom: 5px;
     margin-top: 40px;
     border: none;
-    border-radius: 40px;
     color: white;
 }
 </style>

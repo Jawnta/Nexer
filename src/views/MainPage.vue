@@ -11,65 +11,13 @@ import MessageBox from "@/components/MessageBox.vue";
 
 <template>
     <TopHeader />
-    <Containers @selectedContainer="handleContainer" />
-    <Calender @addDates="handleDates" />
-    <UserInfo @userDetails="handleUserDetails" />
-    <MessageBox @message="handleMessage" />
-    <!--         Knapp för att logga ut datapaketet nedan-->
-    <!--         <button @click="logThis">Logga ut Payloaden</button>-->
+    <Containers />
+    <Calender />
+    <UserInfo />
+    <MessageBox />
     <MapContainer />
     <ArButton />
-    <OrderButton :payload="payload" />
+    <OrderButton />
 </template>
 
-<script lang="ts">
-import type { UserDetails, Payload, ContainerCard } from "@/interfaces";
-export default {
-    data() {
-        return {
-            data: {
-                deliveryDate: "",
-                pickupDate: "",
-                coordinates: "",
-                firstName: "",
-                lastName: "",
-                socialSecurity: "",
-                phoneNumber: "",
-                email: "",
-                address: "",
-                zipCode: "",
-                city: "",
-                message: "",
-                selectedContainer: {},
-            } as Payload,
-        };
-    },
-    methods: {
-        handleDates(data: { deliveryDate: string; pickupDate: string }) {
-            this.data.deliveryDate = data.deliveryDate;
-            this.data.pickupDate = data.pickupDate;
-        },
-        handleUserDetails(userData: UserDetails) {
-            for (let key in userData) {
-                if (key in this.data) {
-                    this.data[key] = userData[key];
-                }
-            }
-        },
-        handleMessage(message: string) {
-            this.data.message = message;
-        },
-        handleContainer(container: ContainerCard) {
-            this.data.selectedContainer = container;
-        },
-        logThis() {
-            console.log(this.data);
-        },
-    },
-    computed: {
-        payload(): Payload {
-            return this.data;
-        },
-    },
-};
-</script>
+
