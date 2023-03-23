@@ -30,7 +30,6 @@
 
 <script lang="ts">
 export default {
-    
     name: "App",
     data() {
         return {
@@ -48,18 +47,18 @@ export default {
     },
     methods: {
         setPlace(place: any) {
-            this.center = { 
+            this.center = {
                 lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng()
-            }
-        }
-    }
+                lng: place.geometry.location.lng(),
+            };
+        },
+    },
 };
 </script>
 
 <style>
-.gmnoprint  {
- display: none;
+.gmnoprint {
+    display: none;
 }
 .map-view {
     width: 300px;
@@ -85,5 +84,4 @@ export default {
 .GMapAutoComp:focus {
     outline: rgb(151, 149, 149) solid 1px;
 }
-
 </style>

@@ -19,6 +19,3 @@ import MessageBox from "@/components/MessageBox.vue";
     <ArButton />
     <OrderButton />
 </template>
-
-
-

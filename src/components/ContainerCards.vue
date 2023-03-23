@@ -63,7 +63,6 @@
                         För mer information kring containern
                     </button>
                 </div>
-                </div>
             </div>
         </div>
         <div class="swiper-pagination"></div>
@@ -83,7 +82,7 @@ export default {
     mounted() {
         this.$watch(
             () => [this.payloadStore.selectedContainer.hasError],
-            (newValue: any, _oldValue: any) => {}
+            (newValue: any, oldValue: any) => {}
         );
         new Swiper(".swiper-container", {
             slidesPerView: "auto",

@@ -20,10 +20,10 @@
                 <!--                    id="3,3mContainer"-->
                 <!--                    src="/Assets/container/3,3m/gltf/3,3m.gltf"-->
                 <!--                ></a-asset-item>-->
-<!--                <a-asset-item-->
-<!--                    id="test"-->
-<!--                    :src="modelPath"-->
-<!--                ></a-asset-item>-->
+                <!--                <a-asset-item-->
+                <!--                    id="test"-->
+                <!--                    :src="modelPath"-->
+                <!--                ></a-asset-item>-->
             </a-assets>
             <a-entity
                 id="container"

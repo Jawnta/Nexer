@@ -39,7 +39,6 @@ export default defineComponent({
     width: 40px !important;
     height: 40px;
     margin-left: 3px;
-
 }
 
 .ar-wrapper p {
@@ -54,7 +53,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2C84D0;
+    background: #2c84d0;
     box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.2);
     border-radius: 32px;
     cursor: pointer;
