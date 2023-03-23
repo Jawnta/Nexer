@@ -5,7 +5,7 @@ const payloadStore = usePayloadStore();
 <template>
     <div class="message-box">
         <label>Meddelande</label>
-        <textarea v-model="payloadStore.message"></textarea>
+        <textarea v-model="payloadStore.message.value"></textarea>
     </div>
 </template>
 

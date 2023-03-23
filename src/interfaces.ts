@@ -11,19 +11,19 @@ export interface UserDetails {
 }
 
 export interface Payload {
-    deliveryDate: string;
-    pickupDate: string;
-    coordinates: string;
-    firstName: string;
-    lastName: string;
-    socialSecurity: string;
-    phoneNumber: string;
-    email: string;
-    address: string;
-    zipCode: string;
-    city: string;
-    message: string;
-    selectedContainer?: ContainerCard;
+    deliveryDate: { value: string; hasError: boolean };
+    pickupDate: { value: string; hasError: boolean };
+    coordinates: { value: string };
+    firstName: { value: string; hasError: boolean };
+    lastName: { value: string; hasError: boolean };
+    socialSecurity: { value: string };
+    phoneNumber: { value: string };
+    email: { value: string; hasError: boolean };
+    address: { value: string; hasError: boolean };
+    zipCode: { value: string; hasError: boolean };
+    city: { value: string; hasError: boolean };
+    message: { value: string };
+    selectedContainer: { value?: ContainerCard; hasError: boolean };
     [key: string]: any;
 }
 

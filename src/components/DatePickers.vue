@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { usePayloadStore } from "@/store/orderStore";
-const payloadStore = usePayloadStore();
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <div class="date-container">
@@ -14,7 +11,10 @@ const payloadStore = usePayloadStore();
                 type="date"
                 id="deliveryDate"
                 name="deliveryDate"
-                v-model="payloadStore.deliveryDate"
+                v-model="payloadStore.deliveryDate.value"
+                :min="setMinDeliveryDate()"
+                :class="{ 'input-error': payloadStore.deliveryDate.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('deliveryDate')"
             />
         </div>
         <!-- Pickup date -->
@@ -28,11 +28,46 @@ const payloadStore = usePayloadStore();
                 type="date"
                 id="pickupDate"
                 name="pickupDate"
-                v-model="payloadStore.pickupDate"
+                v-model="payloadStore.pickupDate.value"
+                :min="setMinPickupDate()"
+                :class="{ 'input-error': payloadStore.pickupDate.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('pickupDate')"
             />
         </div>
     </div>
 </template>
+
+<script lang="ts">
+import { usePayloadStore } from "@/store/orderStore";
+import dayjs from "dayjs";
+export default {
+    mounted() {
+        this.$watch(
+            () => [
+                this.payloadStore.deliveryDate.hasError,
+                this.payloadStore.pickupDate.hasError
+            ],
+            (newValue: boolean, oldValue: boolean) => {}
+        );
+    },
+    methods: {
+        setMinDeliveryDate() {
+            return dayjs().add(2, "day").format("YYYY-MM-DD").toString();
+        },
+        setMinPickupDate(): string {
+            return dayjs(this.payloadStore.deliveryDate.value)
+                .add(2, "day")
+                .format("YYYY-MM-DD")
+                .toString();
+        },
+    },
+    data() {
+        return {
+            payloadStore: usePayloadStore(),
+        };
+    },
+};
+</script>
 
 <style scoped>
 .date-label {
@@ -62,7 +97,6 @@ const payloadStore = usePayloadStore();
 
 input[type="date"] {
     font-family: "ubuntu", serif;
-    background-color: white;
     width: 110px;
     padding: 7px;
     background: #ffffff;

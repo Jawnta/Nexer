@@ -1,30 +1,84 @@
 <script setup lang="ts">
-import { usePayloadStore } from "@/store/orderStore";
-const payloadStore = usePayloadStore();
+// import { usePayloadStore } from "@/store/orderStore";;
+// const payloadStore = usePayloadStore();
 </script>
 <template>
     <h1>Dina uppgifter</h1>
     <div class="userinfo">
         <label>Förnamn</label>
-        <input v-model="payloadStore.firstName" /><br />
-        <label>Efternamn</label>
-        <input v-model="payloadStore.lastName" /><br />
-        <label>Personnummer</label>
         <input
-            v-model="payloadStore.socialSecurity"
+            v-model="payloadStore.firstName.value"
+            :class="{ 'input-error': payloadStore.firstName.hasError }"
+            @focus="payloadStore.clearErrorOnFocus('firstName')"
         /><br />
+        <label>Efternamn</label>
+        <input
+            v-model="payloadStore.lastName.value"
+            :class="{ 'input-error': payloadStore.lastName.hasError }"
+            @focus="payloadStore.clearErrorOnFocus('lastName')"
+        /><br />
+        <label>Personnummer</label>
+        <input v-model="payloadStore.socialSecurity.value" /><br />
         <label>Telefonnummer</label>
-        <input v-model="payloadStore.phoneNumber" /><br />
+        <input v-model="payloadStore.phoneNumber.value" /><br />
         <label>E-postadress</label>
-        <input v-model="payloadStore.email" /><br />
+        <input
+            v-model="payloadStore.email.value"
+            :class="{ 'input-error': payloadStore.email.hasError }"
+            @focus="payloadStore.clearErrorOnFocus('email')"
+        /><br />
         <label>Adress</label>
-        <input v-model="payloadStore.address" /><br />
+        <input
+            v-model="payloadStore.address.value"
+            :class="{ 'input-error': payloadStore.address.hasError }"
+            @focus="payloadStore.clearErrorOnFocus('address')"
+        /><br />
         <label>Postnummer</label>
-        <input v-model="payloadStore.zipCode" /> <br />
+        <input
+            v-model="payloadStore.zipCode.value"
+            :class="{ 'input-error': payloadStore.zipCode.hasError }"
+            @focus="payloadStore.clearErrorOnFocus('zipCode')"
+        />
+        <br />
         <label>Postort</label>
-        <input v-model="payloadStore.city" /> <br />
+        <input
+            v-model="payloadStore.city.value"
+            :class="{ 'input-error': payloadStore.city.hasError }"
+            @focus="payloadStore.clearErrorOnFocus('city')"
+        />
+        <br />
     </div>
 </template>
+
+<script lang="ts">
+import { usePayloadStore } from "@/store/orderStore";
+
+export default {
+    mounted() {
+        this.$watch(
+            () => [
+                this.payloadStore.firstName.hasError,
+                this.payloadStore.lastName.hasError,
+                this.payloadStore.email.hasError,
+                this.payloadStore.address.hasError,
+                this.payloadStore.zipCode.hasError,
+                this.payloadStore.city.hasError,
+            ],
+            (newValue: any, oldValue: any) => {}
+        );
+    },
+    // methods: {
+    //     clearErrorOnFocus(item: { hasError: boolean }) {
+    //         item.hasError = false;
+    //     },
+    // },
+    data() {
+        return {
+            payloadStore: usePayloadStore(),
+        };
+    },
+};
+</script>
 
 <style>
 .userinfo input {
@@ -60,5 +114,9 @@ const payloadStore = usePayloadStore();
 
 .userinfo input:focus {
     outline: rgb(151, 149, 149) solid 1px;
+}
+
+.input-error {
+    border: 2px solid rgba(255, 0, 0, 0.8) !important;
 }
 </style>

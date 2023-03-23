@@ -22,6 +22,15 @@
             <button @click="showInfo = false">Close</button>
         </div>
     </transition>
+    <div
+        :class="
+            !payloadStore.selectedContainer.hasError
+                ? 'hide-alert'
+                : 'test-this border-error'
+        "
+    >
+        <p>Välj en container för att fortsätta!</p>
+    </div>
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div
@@ -44,6 +53,9 @@
                             selected: index === selectedCardIndex,
                         }"
                         @click="selectCard(card, index)"
+                        @focus="
+                            payloadStore.clearErrorOnFocus('selectedContainer')
+                        "
                     >
                         {{ getButtonText(index) }}
                     </button>
@@ -66,9 +78,16 @@ import container20 from "../assets/img/container_20.png";
 import type { ContainerCard } from "@/interfaces";
 import { usePayloadStore } from "@/store/orderStore";
 
-
 export default {
     mounted() {
+        this.$watch(
+            () => [this.payloadStore.selectedContainer.hasError],
+            (newValue: any, oldValue: any) => {
+                if (newValue === true) {
+                    this.scrollToContainer();
+                }
+            }
+        );
         new Swiper(".swiper-container", {
             slidesPerView: "auto",
             spaceBetween: 20,
@@ -82,6 +101,7 @@ export default {
     },
     data() {
         return {
+            payloadStore: usePayloadStore(),
             showInfo: false,
             selectedCardIndex: -1,
             selectedCard: {} as ContainerCard,
@@ -140,19 +160,38 @@ export default {
             this.showInfo = true;
         },
         selectCard(card: ContainerCard, index: number) {
-            const payloadStore = usePayloadStore();
             this.selectedCardIndex = index;
             this.selectedCard = card;
-            payloadStore.selectedContainer = this.selectedCard;
+            this.payloadStore.selectedContainer.value = this.selectedCard;
         },
-        getButtonText(index: number) {
+        getButtonText(index: number): string {
             return index === this.selectedCardIndex ? "✓" : "+";
+        },
+        scrollToContainer() {
+            const divRef = this.$refs.cc;
+            divRef.scrollIntoView({ behavior: "smooth" });
         },
     },
 };
 </script>
 
 <style scoped>
+.hide-alert {
+    display: none;
+}
+.test-this {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 9999999;
+    width: 70%;
+    height: auto;
+    box-shadow: #00000020 10px 10px 40px;
+    border: 2px solid red;
+    border-radius: 24px;
+    font-weight: bold;
+    background: #ffffff;
+}
 .swiper-container {
     display: flex;
     width: 80%;
