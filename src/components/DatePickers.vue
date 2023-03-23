@@ -47,7 +47,9 @@ export default {
                 this.payloadStore.deliveryDate.hasError,
                 this.payloadStore.pickupDate.hasError
             ],
-            (newValue: boolean, oldValue: boolean) => {}
+            (_newValue: any, _oldValue: any) => {
+                // Do nothing in the callback
+            }
         );
     },
     methods: {

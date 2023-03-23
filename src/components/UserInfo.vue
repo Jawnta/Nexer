@@ -67,11 +67,6 @@ export default {
             (newValue: any, oldValue: any) => {}
         );
     },
-    // methods: {
-    //     clearErrorOnFocus(item: { hasError: boolean }) {
-    //         item.hasError = false;
-    //     },
-    // },
     data() {
         return {
             payloadStore: usePayloadStore(),

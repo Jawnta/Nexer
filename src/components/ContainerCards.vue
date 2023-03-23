@@ -82,11 +82,7 @@ export default {
     mounted() {
         this.$watch(
             () => [this.payloadStore.selectedContainer.hasError],
-            (newValue: any, oldValue: any) => {
-                if (newValue === true) {
-                    this.scrollToContainer();
-                }
-            }
+            (newValue: any, _oldValue: any) => {}
         );
         new Swiper(".swiper-container", {
             slidesPerView: "auto",
@@ -166,10 +162,6 @@ export default {
         },
         getButtonText(index: number): string {
             return index === this.selectedCardIndex ? "✓" : "+";
-        },
-        scrollToContainer() {
-            const divRef = this.$refs.cc;
-            divRef.scrollIntoView({ behavior: "smooth" });
         },
     },
 };
