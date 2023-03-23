@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/MainPage.vue";
 import OrderConfirmation from "@/views/OrderConfirmation.vue";
-import ArTest from "@/views/ArTest.vue";
 import ArMain from "@/views/ArMain.vue";
 
 const router = createRouter({
@@ -16,11 +15,6 @@ const router = createRouter({
             path: "/orderConfirmation",
             name: "OrderConfirmation",
             component: OrderConfirmation,
-        },
-        {
-            path: "/ArTest",
-            name: "ArTest",
-            component: ArTest,
         },
         {
             path: "/ArMain",

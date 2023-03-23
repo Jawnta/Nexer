@@ -5,7 +5,7 @@
             @click="
                 () => {
                     handleClick();
-                    sendAdminEmail();
+                    // sendAdminEmail();
                 }
             "
         >
@@ -27,7 +27,12 @@ export default defineComponent({
 
     methods: {
         handleClick() {
-            // const payloadStore = usePayloadStore();
+            const payloadStore = usePayloadStore();
+            payloadStore.validateFields();
+
+            if (!payloadStore.allFieldsValid()) {
+                return false;
+            }
             this.$router.push("/OrderConfirmation");
             // this.$router.push({
             //     name: "OrderConfirmation",
@@ -63,20 +68,24 @@ export default defineComponent({
                     "service_ne3xu3v",
                     "template_1e44wa8",
                     {
-                        deliveryDate: payloadStore.deliveryDate,
-                        pickupDate: payloadStore.pickupDate,
-                        firstname: payloadStore.firstName,
-                        lastname: payloadStore.lastName,
-                        socialSecurity: payloadStore.socialSecurity,
-                        phoneNumber: payloadStore.phoneNumber,
-                        email: payloadStore.email,
-                        address: payloadStore.address,
-                        zipcode: payloadStore.zipCode,
-                        city: payloadStore.city,
-                        title: payloadStore.selectedContainer?.title || "",
-                        length: payloadStore.selectedContainer?.length || 0,
-                        width: payloadStore.selectedContainer?.width || "",
-                        height: payloadStore.selectedContainer?.height || "",
+                        deliveryDate: payloadStore.deliveryDate.value,
+                        pickupDate: payloadStore.pickupDate.value,
+                        firstname: payloadStore.firstName.value,
+                        lastname: payloadStore.lastName.value,
+                        socialSecurity: payloadStore.socialSecurity.value,
+                        phoneNumber: payloadStore.phoneNumber.value,
+                        email: payloadStore.email.value,
+                        address: payloadStore.address.value,
+                        zipcode: payloadStore.zipCode.value,
+                        city: payloadStore.city.value,
+                        title:
+                            payloadStore.selectedContainer.value?.title || "",
+                        length:
+                            payloadStore.selectedContainer.value?.length || 0,
+                        width:
+                            payloadStore.selectedContainer.value?.width || "",
+                        height:
+                            payloadStore.selectedContainer.value?.height || "",
 
                         to_email: "jawntalol@gmail.com",
                     },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePayloadStore } from "@/store/orderStore.ts";
+import { usePayloadStore } from "@/store/orderStore";
 const payloadStore = usePayloadStore();
 </script>
 <template>
