@@ -63,6 +63,7 @@
                         För mer information kring containern
                     </button>
                 </div>
+                </div>
             </div>
         </div>
         <div class="swiper-pagination"></div>
