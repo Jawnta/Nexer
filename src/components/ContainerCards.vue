@@ -184,20 +184,35 @@ export default {
     font-weight: bold;
     background: #ffffff;
 }
+
+.swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    transition-property: transform;
+    transition-timing-function: var(--swiper-wrapper-transition-timing-function,initial);
+    box-sizing: content-box;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: baseline;
+}
 .swiper-container {
     display: flex;
     width: 80%;
     height: 460px;
     margin-bottom: 40px;
     position: relative;
-    /* height: 460px; */
     border-radius: 24px;
 }
 
 .swiper-slide {
     display: flex;
-    width: 100%;
-    /* height: 460px; */
+    width: 315px;
+    height: 460px;
     background-color: white;
     box-shadow: #00000020 10px 10px 40px;
     border-radius: 24px;
