@@ -65,7 +65,6 @@
                 </div>
             </div>
         </div>
-        <div class="swiper-pagination"></div>
     </div>
 </template>
 
@@ -171,19 +170,6 @@ export default {
 .hide-alert {
     display: none;
 }
-.test-this {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    z-index: 9999999;
-    width: 70%;
-    height: auto;
-    box-shadow: #00000020 10px 10px 40px;
-    border: 2px solid red;
-    border-radius: 24px;
-    font-weight: bold;
-    background: #ffffff;
-}
 
 .swiper-wrapper {
     position: relative;
@@ -201,12 +187,10 @@ export default {
     align-items: baseline;
 }
 .swiper-container {
-    display: flex;
-    width: 80%;
-    height: 460px;
-    margin-bottom: 40px;
-    position: relative;
-    border-radius: 24px;
+    width: 100%;
+    max-width: 315px;
+    height: auto;
+    padding: 2rem;
 }
 
 .swiper-slide {
@@ -251,9 +235,7 @@ export default {
     color: #2985e1;
 }
 
-.swiper-pagination {
-    --swiper-pagination-bottom: -30px;
-}
+
 
 .info-popup {
     position: fixed;
