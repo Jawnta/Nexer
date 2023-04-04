@@ -1,3 +1,4 @@
+<script setup lang="ts"></script>
 <template>
     <div ref="container"></div>
 </template>
@@ -6,9 +7,11 @@
 import * as THREE from "three";
 import { ARButton } from "three/addons/webxr/ARButton";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { usePayloadStore } from "@/store/orderStore";
 
 export default {
     mounted() {
+        console.log(this.payloadStore.selectedContainer);
         this.init();
         this.animate();
         window.addEventListener("resize", this.onWindowResize);
@@ -59,7 +62,7 @@ export default {
         },
         async addModelToScene() {
             // specify a model URL
-            const modelUrl = this.modelPath;
+            const modelUrl = this.payloadStore.selectedContainer.value.modelPath;
 
             // create a GLTF loader object. GLTF is a 3D model format usually called the "JPEG of 3D" because it is
             // fast and efficient to use, which is ideal for the web
@@ -77,7 +80,7 @@ export default {
             this.scene.add(this.model); // so model is in the scene but invisible
         },
         addReticleToScene() {
-            const geometry = new THREE.RingBufferGeometry(
+            const geometry = new THREE.RingGeometry(
                 0.15,
                 0.2,
                 32
@@ -172,7 +175,7 @@ export default {
     },
     data() {
         return {
-            modelPath: "../../public/models/3,1m/gltf/3,1m.gltf",
+            payloadStore: usePayloadStore(),
         };
     },
 };

@@ -40,6 +40,7 @@ export interface ContainerCard {
     gardenWaste: string;
     combustibleWaste: string;
     height: string;
+    modelPath: string;
 }
 
 export interface PayloadQuery extends Payload {

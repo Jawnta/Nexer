@@ -116,6 +116,7 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
+                    modelPath: "../../public/models/3,1m/gltf/3,1m.gltf",
                 },
                 {
                     logo: container10,
@@ -131,6 +132,7 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
+                    modelPath: "../../public/models/3,3m/gltf/3,3m.gltf",
                 },
                 {
                     logo: container20,
@@ -146,6 +148,7 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
+                    modelPath: "../../public/models/6m/gltf/6m.gltf",
                 },
             ],
         };
