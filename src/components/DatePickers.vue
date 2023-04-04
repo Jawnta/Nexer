@@ -58,7 +58,7 @@ export default {
         },
         setMinPickupDate(): string {
             return dayjs(this.payloadStore.deliveryDate.value)
-                .add(2, "day")
+                .add( 2, "day")
                 .format("YYYY-MM-DD")
                 .toString();
         },
