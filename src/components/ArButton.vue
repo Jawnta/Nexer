@@ -48,7 +48,6 @@ export default defineComponent({
 
 .ar-button {
     font-weight: medium;
-    width: 100%;
     height: 55px;
     display: flex;
     justify-content: center;
