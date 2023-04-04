@@ -48,12 +48,16 @@ export const usePayloadStore = defineStore({
             }
         },
         allFieldsValid() {
-            return Object.values(this.$state).every((field) => {
-                return (
-                    !Object.prototype.hasOwnProperty.call(field, "hasError") ||
-                    !field.hasError
-                );
-            });
+            return Object.values(this.$state).every(
+                (field: { hasError: boolean }) => {
+                    return (
+                        !Object.prototype.hasOwnProperty.call(
+                            field,
+                            "hasError"
+                        ) || !field.hasError
+                    );
+                }
+            );
         },
         clearErrorOnFocus(item: string) {
             this.$state[item].hasError = false;
