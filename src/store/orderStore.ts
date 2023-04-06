@@ -15,6 +15,7 @@ export const usePayloadStore = defineStore({
         zipCode: { value: "", hasError: false },
         city: { value: "", hasError: false },
         message: { value: "" },
+        containerMarker: { value: "", hasError: false },
         selectedContainer: { value: undefined, hasError: false },
     }),
     actions: {

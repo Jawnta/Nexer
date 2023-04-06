@@ -8,38 +8,53 @@
             ref="myMapRef"
             :center="center"
             :zoom="14"
+            :options="options"
             style="height: 300px; border-radius: 10px"
+            @click="setMarker"
         >
             <GMapMarker
                 :key="index"
                 v-for="(m, index) in markers"
                 :position="m.position"
                 :icon="'../src/assets/img/container_icon.png'"
-                :clickable="true"
                 :draggable="true"
+                @dragend="setMarker"
             />
         </GMapMap>
         <GMapAutocomplete
             placeholder="Flytta kartan till:"
             @place_changed="setPlace"
             class="GMapAutoComp"
+            :options="{
+                componentRestrictions: {
+                    country: [
+                        'se',
+                    ],
+                },
+            }"
+            
         >
         </GMapAutocomplete>
     </div>
 </template>
 
 <script lang="ts">
+import { usePayloadStore } from "@/store/orderStore";
+
 export default {
-    name: "App",
+    name: "MapCointainer",
     data() {
         return {
             location: "",
+            options: {
+                clickableIcons: false
+            },
             center: { lat: 56.16156, lng: 15.58661 },
             markers: [
                 {
                     position: {
-                        lat: 56.16156,
-                        lng: 15.58661,
+                        lat: 0,
+                        lng: 0,
                     },
                 },
             ],
@@ -47,11 +62,28 @@ export default {
     },
     methods: {
         setPlace(place: any) {
+            const myMap = this.$refs.myMapRef as any;
+            myMap.fitBounds(place.geometry.viewport);
+
             this.center = {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
             };
+
+            this.markers[0].position = {
+                lat: 0,
+                lng: 0,
+            };
         },
+        setMarker(event: any) {
+            this.markers[0].position = {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+            }
+
+            const payloadStore = usePayloadStore();
+            payloadStore.containerMarker.value = this.markers[0].position;
+        }
     },
 };
 </script>
