@@ -8,6 +8,7 @@
             ref="myMapRef"
             :center="center"
             :zoom="14"
+            map-type-id="hybrid"
             :options="options"
             style="height: 300px; border-radius: 10px"
             @click="setMarker"
