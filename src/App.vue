@@ -12,6 +12,10 @@ import TopLogo from "@/components/TopLogo.vue";
 </template>
 
 <style>
+html, body{
+    max-width: 100%;
+    overflow-x: hidden;
+}
 .wrapper {
     display: flex;
     flex-flow: column wrap;
