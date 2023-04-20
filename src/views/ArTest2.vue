@@ -1,6 +1,7 @@
 <script setup lang="ts"></script>
 <template>
     <div ref="container"></div>
+    <div id="circle"></div>
 </template>
 
 <script>
@@ -39,7 +40,7 @@ export default {
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.renderer.xr.enabled = true;
-            //container.appendChild(renderer.domElement);
+            container.appendChild(this.renderer.domElement);
 
             const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
             light.position.set(0.5, 1, 0.25);
@@ -50,24 +51,22 @@ export default {
             this.scene.add(this.controller);
 
             this.addReticleToScene();
+            // this.addSnapshotButtonToScene();
             this.addModelToScene(); // add only 1 model to the scene and we will just update it's position
 
             const button = ARButton.createButton(this.renderer, {
                 requiredFeatures: ["hit-test"], // notice a new required feature
             });
             document.body.appendChild(button);
+
             this.renderer.domElement.style.display = "none";
 
             window.addEventListener("resize", this.onWindowResize, false);
         },
         async addModelToScene() {
             // specify a model URL
-            const modelUrl = this.payloadStore.selectedContainer.value.modelPath;
-
-            // create a GLTF loader object. GLTF is a 3D model format usually called the "JPEG of 3D" because it is
-            // fast and efficient to use, which is ideal for the web
-            // const loader = new THREE.GLTFLoader();
-
+            const modelUrl =
+                this.payloadStore.selectedContainer.value?.modelPath;
             // load the model
             const loader = new GLTFLoader();
             const gltf = await loader.loadAsync(modelUrl);
@@ -80,11 +79,9 @@ export default {
             this.scene.add(this.model); // so model is in the scene but invisible
         },
         addReticleToScene() {
-            const geometry = new THREE.RingGeometry(
-                0.15,
-                0.2,
-                32
-            ).rotateX(-Math.PI / 2);
+            const geometry = new THREE.RingGeometry(0.15, 0.2, 32).rotateX(
+                -Math.PI / 2
+            );
             const material = new THREE.MeshBasicMaterial();
 
             this.reticle = new THREE.Mesh(geometry, material);
@@ -94,6 +91,22 @@ export default {
             this.reticle.matrixAutoUpdate = false;
             this.reticle.visible = false; // we start with the reticle not visible
             this.scene.add(this.reticle);
+        },
+        addSnapshotButtonToScene() {
+            // create the ring geometry
+            const ringGeometry = new THREE.RingGeometry(0.5, 0.7, 32);
+            // create the material for the ring
+            const ringMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                side: THREE.DoubleSide,
+                wireframeLinewidth: 2, // set the width of the wireframe border
+            });
+            // create the ring mesh
+            const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+            // set the position of the ring
+            ringMesh.position.set(0, 0, -1);
+            // add the ring to the scene
+            this.scene.add(ringMesh);
         },
         onSelect() {
             if (this.reticle.visible && this.model) {
