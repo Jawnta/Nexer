@@ -71,9 +71,6 @@
 <script lang="ts">
 import { Swiper, Pagination } from "swiper";
 import "swiper/css/bundle";
-import container8 from "../assets/img/container_8.png";
-import container10 from "../assets/img/container_10.png";
-import container20 from "../assets/img/container_20.png";
 import type { ContainerCard } from "@/interfaces";
 import { usePayloadStore } from "@/store/orderStore";
 
@@ -93,6 +90,7 @@ export default {
                 el: ".swiper-pagination",
             },
         });
+        this.selectedCardIndex = this.payloadStore.selectedContainer.index;
     },
     data() {
         return {
@@ -102,7 +100,7 @@ export default {
             selectedCard: {} as ContainerCard,
             cards: [
                 {
-                    logo: container8,
+                    logo: "/src/assets/img/container_8.png",
                     title: "8 Kubikmeter",
                     length: "3130 mm",
                     width: "2074 mm",
@@ -118,7 +116,7 @@ export default {
                     modelPath: "/src/assets/models/8c.gltf",
                 },
                 {
-                    logo: container10,
+                    logo: "/src/assets/img/container_10.png",
                     title: "10 Kubikmeter",
                     length: "3300 mm",
                     width: "1900 mm",
@@ -134,7 +132,7 @@ export default {
                     modelPath: "/src/assets/models/10c.gltf",
                 },
                 {
-                    logo: container20,
+                    logo: "/src/assets/img/container_20.png",
                     title: "20 Kubikmeter",
                     length: "6000 mm",
                     width: "2550 mm",
@@ -161,11 +159,13 @@ export default {
             this.selectedCardIndex = index;
             this.selectedCard = card;
             this.payloadStore.selectedContainer.value = this.selectedCard;
+            this.payloadStore.selectedContainer.index = index;
         },
         getButtonText(index: number): string {
             return index === this.selectedCardIndex ? "✓" : "+";
-        },
+        }
     },
+
 };
 </script>
 
