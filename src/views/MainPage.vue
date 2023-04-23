@@ -12,10 +12,10 @@ import MessageBox from "@/components/MessageBox.vue";
 <template>
     <TopHeader />
     <Containers />
+    <ArButton />
+    <MapContainer />
     <Calender />
     <UserInfo />
     <MessageBox />
-    <MapContainer />
-    <ArButton />
     <OrderButton />
 </template>

@@ -3,7 +3,7 @@ import ArIcon from "../assets/img/AR.png";
 </script>
 <template>
     <div class="ar-wrapper">
-        <button class="ar-button" @click="handleClick">
+        <button class="ar-button" :style="button_style" @click="handleClick">
             Ta bild med AR
             <img :src="ArIcon" style="width: inherit" alt="container-logo" />
         </button>
@@ -16,15 +16,36 @@ import ArIcon from "../assets/img/AR.png";
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { usePayloadStore } from "@/store/orderStore";
 
 export default defineComponent({
+    data() {
+        return {
+            payloadStore: usePayloadStore(),
+            button_style: "background-color: #363d42"
+        }
+    },
     methods: {
         handleClick() {
-            this.$router.push({
-                name: "ArMain",
-            });
+            if ( this.payloadStore.selectedContainer.value !== undefined ) {
+                this.$router.push({
+                    name: "ArMain",
+                });
+            }
         },
+        set_button_blue() {
+            if ( this.payloadStore.selectedContainer.value !== undefined ) {
+                this.button_style = "background-color: #2c84d0"
+            }
+        }
     },
+    mounted() {
+        this.$watch(
+            () => [this.payloadStore.selectedContainer.value],
+            () => {this.set_button_blue()}
+        );
+        this.set_button_blue();
+    }
 });
 </script>
 

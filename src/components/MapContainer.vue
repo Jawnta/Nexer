@@ -43,9 +43,10 @@
 import { usePayloadStore } from "@/store/orderStore";
 
 export default {
-    name: "MapCointainer",
+    name: "MapContainer",
     data() {
         return {
+            payloadStore: usePayloadStore(),
             location: "",
             options: {
                 clickableIcons: false
@@ -82,8 +83,7 @@ export default {
                 lng: event.latLng.lng(),
             }
 
-            const payloadStore = usePayloadStore();
-            payloadStore.containerMarker.value = this.markers[0].position;
+            this.payloadStore.containerMarker.value = this.markers[0].position;
         }
     },
 };
