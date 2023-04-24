@@ -163,7 +163,7 @@ export default {
             this.payloadStore.selectedContainer.value = this.selectedCard;
         },
         getButtonText(index: number): string {
-            return index === this.selectedCardIndex ? "✓" : "+";
+            return index === this.selectedCardIndex ? "✔" : "+";
         },
     },
 };
@@ -280,7 +280,7 @@ export default {
 }
 
 .selected {
-    background: #7534ff;
+    background: #2894f3;
     min-height: 62px;
 }
 </style>
