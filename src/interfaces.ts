@@ -23,7 +23,7 @@ export interface Payload {
     zipCode: { value: string; hasError: boolean };
     city: { value: string; hasError: boolean };
     message: { value: string };
-    selectedContainer: { value?: ContainerCard; hasError: boolean };
+    selectedContainer: { value?: ContainerCard; hasError: boolean; index: number };
     [key: string]: any;
 }
 

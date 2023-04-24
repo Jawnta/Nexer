@@ -16,7 +16,7 @@ export const usePayloadStore = defineStore({
         city: { value: "", hasError: false },
         message: { value: "" },
         containerMarker: { value: "", hasError: false },
-        selectedContainer: { value: undefined, hasError: false },
+        selectedContainer: { value: undefined, hasError: false, index: -1 },
     }),
     actions: {
         assignDates(data: { deliveryDate: string; pickupDate: string }) {
