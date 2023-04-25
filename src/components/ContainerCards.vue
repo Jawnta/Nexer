@@ -71,9 +71,6 @@
 <script lang="ts">
 import { Swiper, Pagination } from "swiper";
 import "swiper/css/bundle";
-import container8 from "../assets/img/container_8.png";
-import container10 from "../assets/img/container_10.png";
-import container20 from "../assets/img/container_20.png";
 import type { ContainerCard } from "@/interfaces";
 import { usePayloadStore } from "@/store/orderStore";
 
@@ -93,6 +90,7 @@ export default {
                 el: ".swiper-pagination",
             },
         });
+        this.selectedCardIndex = this.payloadStore.selectedContainer.index;
     },
     data() {
         return {
@@ -102,7 +100,7 @@ export default {
             selectedCard: {} as ContainerCard,
             cards: [
                 {
-                    logo: container8,
+                    logo: "/src/assets/img/container_8.png",
                     title: "8 Kubikmeter",
                     length: "3130 mm",
                     width: "2074 mm",
@@ -115,10 +113,10 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
-                    modelPath: "../../public/models/3,1m/gltf/3,1m.gltf",
+                    modelPath: "/src/assets/models/8c.gltf",
                 },
                 {
-                    logo: container10,
+                    logo: "/src/assets/img/container_10.png",
                     title: "10 Kubikmeter",
                     length: "3300 mm",
                     width: "1900 mm",
@@ -131,10 +129,10 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
-                    modelPath: "../../public/models/3,3m/gltf/3,3m.gltf",
+                    modelPath: "/src/assets/models/10c.gltf",
                 },
                 {
-                    logo: container20,
+                    logo: "/src/assets/img/container_20.png",
                     title: "20 Kubikmeter",
                     length: "6000 mm",
                     width: "2550 mm",
@@ -147,7 +145,7 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
-                    modelPath: "../../public/models/6m/gltf/6m.gltf",
+                    modelPath: "/src/assets/models/20c.gltf",
                 },
             ],
         };
@@ -161,11 +159,13 @@ export default {
             this.selectedCardIndex = index;
             this.selectedCard = card;
             this.payloadStore.selectedContainer.value = this.selectedCard;
+            this.payloadStore.selectedContainer.index = index;
         },
         getButtonText(index: number): string {
-            return index === this.selectedCardIndex ? "✔" : "+";
-        },
+            return index === this.selectedCardIndex ? "✓" : "+";
+        }
     },
+
 };
 </script>
 
@@ -227,7 +227,8 @@ export default {
     min-height: 62px;
 }
 
-.info-button {
+.info-button,
+.info-popup button {
     cursor: pointer;
     padding: 10px;
     width: 80%;
@@ -237,24 +238,13 @@ export default {
     color: #2985e1;
 }
 
-.info-popup button{
-    text-align: center;
-    cursor: pointer;
-    padding: 10px;
-    width: 50%;
-    border: none;
-    border-radius: 40px;
-    background-color: #c0e0ff;
-    color: #2985e1;
-}
 
 
 .info-popup {
     position: fixed;
     text-align: center;
     margin: 20px;
-    max-width: 400px;
-    padding: 40px;
+    width: 90vw;
     padding-top: 50px;
     padding-bottom: 50px;
     background: white;
@@ -290,7 +280,7 @@ export default {
 }
 
 .selected {
-    background: #2894f3;
+    background: #7534ff;
     min-height: 62px;
 }
 </style>
