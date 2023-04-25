@@ -77,7 +77,7 @@ export default {
                     root: container,
                 },
             });
-            document.body.appendChild(button);
+            container.appendChild(button);
             this.renderer.domElement.style.display = "none";
             document.body.style.background = "transparent";
             window.addEventListener("resize", this.onWindowResize, false);
