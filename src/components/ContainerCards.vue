@@ -115,11 +115,7 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
-<<<<<<< HEAD
-                    modelPath: "../../public/models/3,1m/gltf/3,1m.gltf",
-=======
                     modelPath: "../../public/models/3,1m/gltf/31m.gltf",
->>>>>>> parent of 1727505 (updated model and their positions)
                 },
                 {
                     logo: container10,
