@@ -1,23 +1,14 @@
-<script setup lang="ts"></script>
 <template>
-    <div ref="container">
-        <button
-            @click="this.takePicture"
-            id="take-picture-button"
-            class="picture-button"
-        >
-            TA BILD
+    <canvas ref="canvas" id="canvas"></canvas>
+    <div ref="overlay" id="overlay">
+        <button  ref="picture" class="picture-button" v-show="arSessionStarted">
+        TA BILD
         </button>
-        <button
-            @click="this.rotate"
-            id="rotation-change-button"
-            class="rotation-button"
-        >
-            ROTERA
+        <button ref="rotate" class="rotation-button" v-show="arSessionStarted">
+        ROTERA 
         </button>
     </div>
 </template>
-
 <script>
 import * as THREE from "three";
 import { ARButton } from "three/addons/webxr/ARButton";
@@ -26,17 +17,24 @@ import { usePayloadStore } from "@/store/orderStore";
 
 export default {
     mounted() {
-        console.log(this.payloadStore.selectedContainer);
         this.init();
         this.animate();
         window.addEventListener("resize", this.onWindowResize);
     },
-    beforeUnmount() {
+    beforeUnmounted() {
         window.removeEventListener("resize", this.onWindowResize);
+    },
+    data() {
+        return {
+            payloadStore: usePayloadStore(),
+            arSessionStarted: false,
+        };
     },
     methods: {
         init() {
-            const container = this.$refs.container;
+            // Create a THREE scene
+            this.scene = new THREE.Scene()
+
             this.camera = new THREE.PerspectiveCamera(
                 70,
                 window.innerWidth / window.innerHeight,
@@ -45,28 +43,37 @@ export default {
             );
             this.camera.position.z = 1;
 
-            this.scene = new THREE.Scene();
-
+           // CreatE a THREE WebGLRenderer
+            this.canvas = this.$refs.canvas;
+            this.gl = this.canvas.getContext('webgl', {xrCompatible: true});
             this.renderer = new THREE.WebGLRenderer({
+                canvas: this.canvas,
+                context: this.gl,
                 antialias: true,
                 alpha: true,
+                powerPreference: 'high-performance', 
+                xrCompatible: true,
             });
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.renderer.xr.enabled = true;
-            //container.appendChild(renderer.domElement);
-
+    
+            // Create a THREE light object
             const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
             light.position.set(0.5, 1, 0.25);
             this.scene.add(light);
+            
+            // Load the model and reticle to the scene
+            this.addReticleToScene();
+            this.addModelToScene(); 
 
+            // Create THREE controller to place the container
             this.controller = this.renderer.xr.getController(0);
             this.controller.addEventListener("select", this.onSelect);
             this.scene.add(this.controller);
-
-            this.addReticleToScene();
-            this.addModelToScene(); // add only 1 model to the scene and we will just update it's position
-
+            
+            // Create a button to enter  a AR session 
+            this.overlay = this.$refs.overlay;
             const button = ARButton.createButton(this.renderer, {
                 requiredFeatures: ["hit-test"],
                 optionalFeatures: [
@@ -74,118 +81,114 @@ export default {
                     "dom-overlay-for-handheld-ar",
                 ],
                 domOverlay: {
-                    root: container,
+                    root: this.overlay,
                 },
             });
-            document.body.appendChild(button);
-            this.renderer.domElement.style.display = "none";
-            document.body.style.background = "transparent";
+            this.overlay.appendChild(button);
+            // Add an id to the ar button
+            button.id = "my-id";
+
+
+            //Initiate the event listeners for the rotate and take picture buttons
+            this.rotationButton = this.$refs.rotate;
+            this.takePictureButton = this.$refs.picture;
+            this.rotationButton.addEventListener('beforexrselect', ev => ev.preventDefault());
+            this.takePictureButton.addEventListener('beforexrselect', ev => ev.preventDefault());
+            
+            this.rotationButton.addEventListener('click', () => {
+                this.rotate();
+            });
+            
+            this.takePictureButton.addEventListener('click', () => {
+                this.takePicture();
+            });
+            // Add event listener to adjust the size of the window
             window.addEventListener("resize", this.onWindowResize, false);
         },
         async addModelToScene() {
-            // specify a model URL
+            // Create the path to the chosen container
             const modelUrl =
                 this.payloadStore.selectedContainer.value?.modelPath;
 
-            // create a GLTF loader object. GLTF is a 3D model format usually called the "JPEG of 3D" because it is
-            // fast and efficient to use, which is ideal for the web
-            // const loader = new THREE.GLTFLoader();
-
-            // load the model
+            // Load the Model
             const loader = new GLTFLoader();
             const gltf = await loader.loadAsync(modelUrl);
-            this.model = gltf.scene; // save a reference to this object in the "model" variable
+            this.model = gltf.scene; 
+
             this.model.outputEncoding = THREE.sRGBEncoding;
-            this.model.scale.multiplyScalar(0.005); // make this particular model a bit larger
-
-            this.model.visible = false; // set the model to false
-
-            this.scene.add(this.model); // so model is in the scene but invisible
+            this.model.scale.multiplyScalar(0.005); 
+            this.model.visible = false; 
+            this.scene.add(this.model); 
         },
         addReticleToScene() {
             const geometry = new THREE.RingGeometry(0.15, 0.2, 32).rotateX(
                 -Math.PI / 2
             );
             const material = new THREE.MeshBasicMaterial();
-
             this.reticle = new THREE.Mesh(geometry, material);
 
-            // we will calculate the position and rotation of this reticle every frame manually
-            // in the render() function so matrixAutoUpdate is set to false
             this.reticle.matrixAutoUpdate = false;
-            this.reticle.visible = false; // we start with the reticle not visible
+            this.reticle.visible = false; 
             this.scene.add(this.reticle);
         },
         onSelect() {
             if (this.reticle.visible && this.model) {
-                this.model.visible = true; // make sure we set the model to visible
-                // just update its position, not necessarily to create a new one
-                // this.model.matrixAutoUpdate = false; // holds the container in a solid position
+                this.model.visible = true; 
+    
                 this.model.position.setFromMatrixPosition(this.reticle.matrix);
-                this.model.quaternion.setFromRotationMatrix(
-                    this.reticle.matrix
-                );
-                this.model.rotation.set(0, 0, 0);
+                this.model.quaternion.setFromRotationMatrix(this.reticle.matrix);
+
+                this.model.position.x += 0.25;
                 this.model.position.z -= 0.25;
+                this.arSessionStarted = true;
             }
-        },
-        animate() {
-            this.renderer.setAnimationLoop(this.render);
         },
         onWindowResize() {
             this.camera.aspect = window.innerWidth / window.innerHeight;
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
         },
+        animate() {
+            this.renderer.setAnimationLoop(this.render);
+        },
         async initializeHitTestSource() {
-            const session = this.renderer.xr.getSession(); // XRSession
-
-            // Reference spaces express relationships between an origin and the world.
-
-            // For hit testing, we use the "viewer" reference space,
-            // which is based on the device's pose at the time of the hit test.
+            const session = this.renderer.xr.getSession({ 
+                mode: "immersive-ar", 
+                requiredFeatures: ["hit-test"]
+            }); 
             const viewerSpace = await session.requestReferenceSpace("viewer");
             this.hitTestSource = await session.requestHitTestSource({
                 space: viewerSpace,
             });
-
-            // We're going to use the reference space of "local" for drawing things.
-            // which gives us stability in terms of the environment.
-            // read more here: https://developer.mozilla.org/en-US/docs/Web/API/XRReferenceSpace
             this.localSpace = await session.requestReferenceSpace("local");
-
-            // set this to true so we don't request another hit source for the rest of the session
             this.hitTestSourceInitialized = true;
 
-            // In case we close the AR session by hitting the button "End AR"
             session.addEventListener("end", () => {
                 this.hitTestSourceInitialized = false;
                 this.hitTestSource = null;
+
+                // Redirect the user to home after the STOP AR button is clicked
+                this.$router.push({
+                name: "home",
+            });
             });
         },
         render(timestamp, frame) {
             if (frame) {
-                // 1. create a hit test source once and keep it for all the frames
-                // this gets called only once
                 if (!this.hitTestSourceInitialized) {
                     this.initializeHitTestSource();
                 }
 
-                // 2. get hit test results
                 if (this.hitTestSourceInitialized) {
-                    // we get the hit test results for a particular frame
                     const hitTestResults = frame.getHitTestResults(
                         this.hitTestSource
                     );
 
-                    // XRHitTestResults The hit test may find multiple surfaces. The first one in the array is the one closest to the camera.
                     if (hitTestResults.length > 0) {
                         const hit = hitTestResults[0];
-                        // Get a pose from the hit test result. The pose represents the pose of a point on a surface.
                         const pose = hit.getPose(this.localSpace);
-
                         this.reticle.visible = true;
-                        // Transform/move the reticle image to the hit test position
+
                         this.reticle.matrix.fromArray(pose.transform.matrix);
                     } else {
                         this.reticle.visible = false;
@@ -197,6 +200,7 @@ export default {
         },
         takePicture() {
             //Take Picture
+            alert("Work in Progress!");
         },
         rotate() {
             //Checks if the model exists
@@ -205,15 +209,16 @@ export default {
             }
         },
     },
-    data() {
-        return {
-            payloadStore: usePayloadStore(),
-        };
-    },
 };
 </script>
 
 <style scoped>
+  #canvas {
+        position: absolute;
+        width: 98vw;
+        height: 98vh;
+      }
+      
 .picture-button {
     right: 20px;
     position: absolute;
