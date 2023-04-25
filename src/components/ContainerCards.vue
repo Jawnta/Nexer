@@ -115,7 +115,7 @@ export default {
                     combustibleWaste: "1731 kronor per ton",
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
-                    modelPath: "../../public/models/3,1m/gltf/31m.gltf",
+                    modelPath: "../../public/models/3,1m/gltf/3,1m.gltf",
                 },
                 {
                     logo: container10,
@@ -227,8 +227,7 @@ export default {
     min-height: 62px;
 }
 
-.info-button,
-.info-popup button {
+.info-button {
     cursor: pointer;
     padding: 10px;
     width: 80%;
@@ -238,13 +237,24 @@ export default {
     color: #2985e1;
 }
 
+.info-popup button{
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    width: 50%;
+    border: none;
+    border-radius: 40px;
+    background-color: #c0e0ff;
+    color: #2985e1;
+}
 
 
 .info-popup {
     position: fixed;
     text-align: center;
     margin: 20px;
-    width: 90vw;
+    max-width: 400px;
+    padding: 40px;
     padding-top: 50px;
     padding-bottom: 50px;
     background: white;

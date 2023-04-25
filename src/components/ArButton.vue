@@ -16,6 +16,7 @@ import ArIcon from "../assets/img/AR.png";
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { usePayloadStore } from "@/store/orderStore";
 
 export default defineComponent({
     data() {
