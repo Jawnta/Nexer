@@ -50,6 +50,7 @@ export default {
                 alpha: true,
                 powerPreference: 'high-performance', 
                 xrCompatible: true,
+                preserveDrawingBuffer: true
             });
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -184,6 +185,8 @@ export default {
         },
         takePicture() {
             //Take Picture
+            this.screenshoot = this.renderer.domElement.toDataURL();
+            console.log(this.screenshoot);
             alert("Work in Progress!");
         },
         rotate() {
