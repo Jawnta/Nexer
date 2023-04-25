@@ -53,7 +53,8 @@ export default {
                 alpha: true,
                 powerPreference: 'high-performance', 
                 xrCompatible: true,
-            });
+                preserveDrawingBuffer: true;
+            })
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.renderer.xr.enabled = true;
