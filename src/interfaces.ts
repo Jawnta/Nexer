@@ -13,7 +13,6 @@ export interface UserDetails {
 export interface Payload {
     deliveryDate: { value: string; hasError: boolean };
     pickupDate: { value: string; hasError: boolean };
-    coordinates: { value: string };
     firstName: { value: string; hasError: boolean };
     lastName: { value: string; hasError: boolean };
     socialSecurity: { value: string };

@@ -1,4 +1,14 @@
 <template>
+    <div
+        class="alert-container" 
+        :class="
+            payloadStore.selectedContainer.hasError
+                ? 'animation-in'
+                : 'animation-out'
+        "
+    >
+        <p>Välj en container för att fortsätta!</p>
+    </div>
     <div>
         <button
             class="order-button"
@@ -20,23 +30,23 @@ import emailjs from "emailjs-com";
 import { usePayloadStore } from "@/store/orderStore";
 
 export default defineComponent({
+    name: "OrderButton",
     mounted() {
         emailjs.init("aJoppP8gvteb65_ur");
     },
-    name: "OrderButton",
-
+    data() {
+        return {
+            payloadStore: usePayloadStore(),
+        };
+    },
     methods: {
         handleClick() {
             const payloadStore = usePayloadStore();
-            payloadStore.validateFields();
-
-            if (!payloadStore.allFieldsValid()) {
+            if (!payloadStore.validateFields()) {
                 return false;
             }
+
             this.$router.push("/OrderConfirmation");
-            // this.$router.push({
-            //     name: "OrderConfirmation",
-            // });
         },
         // sendEmail() {
         //     emailjs
@@ -105,6 +115,7 @@ export default defineComponent({
 </script>
 
 <style>
+
 .order-button {
     font-weight: medium;
     width: 100%;
@@ -124,4 +135,36 @@ export default defineComponent({
     border: none;
     color: white;
 }
+
+.alert-container {
+    position: fixed;
+    background-color: #ff5d5d;
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 999;
+    color: white;
+    transform: translateY(-120px);
+    transition: translateY 0.2s ease-in-out;
+}
+
+.animation-in {
+    animation: slide-in 0.1s ease-out forwards;
+}
+
+.animation-out {
+    animation: slide-out 0.1s ease-out forwards;
+}
+
+@keyframes slide-in {
+    to {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes slide-out {
+    to {
+        transform: translateY(-120px);
+    }
+}
+
 </style>

@@ -5,7 +5,6 @@ export const usePayloadStore = defineStore({
     state: (): Payload => ({
         deliveryDate: { value: "", hasError: false },
         pickupDate: { value: "", hasError: false },
-        coordinates: { value: "" },
         firstName: { value: "", hasError: false },
         lastName: { value: "", hasError: false },
         socialSecurity: { value: "" },
@@ -37,28 +36,24 @@ export const usePayloadStore = defineStore({
             this.selectedContainer.value = container;
         },
         validateFields() {
+            let pass_validation = true;
             for (const key of Object.keys(this.$state)) {
-                if (
+                const hasPropertyError = (
                     Object.prototype.hasOwnProperty.call(
                         this.$state[key],
                         "hasError"
                     )
-                ) {
-                    this[key].hasError = !this[key].value;
+                )
+                if (hasPropertyError) {
+                    const missing_value = !this[key].value;
+                    this[key].hasError = missing_value;
+                    if (missing_value) {
+                        pass_validation = false;
+                    }
                 }
             }
-        },
-        allFieldsValid() {
-            return Object.values(this.$state).every(
-                (field: { hasError: boolean }) => {
-                    return (
-                        !Object.prototype.hasOwnProperty.call(
-                            field,
-                            "hasError"
-                        ) || !field.hasError
-                    );
-                }
-            );
+
+            return pass_validation;
         },
         clearErrorOnFocus(item: string) {
             this.$state[item].hasError = false;

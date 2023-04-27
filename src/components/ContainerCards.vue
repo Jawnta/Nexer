@@ -22,21 +22,18 @@
             <button @click="showInfo = false">Close</button>
         </div>
     </transition>
-    <div
-        :class="
-            !payloadStore.selectedContainer.hasError
-                ? 'hide-alert'
-                : 'test-this border-error'
-        "
-    >
-        <p>Välj en container för att fortsätta!</p>
-    </div>
+
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div
                 v-for="(card, index) in cards"
                 :key="index"
                 class="swiper-slide"
+                :class="
+                    payloadStore.selectedContainer.hasError
+                        ? 'not-selected-container'
+                        : ''
+                    "
             >
                 <div class="content">
                     <img
@@ -76,10 +73,10 @@ import { usePayloadStore } from "@/store/orderStore";
 
 export default {
     mounted() {
-        this.$watch(
+        /* this.$watch(
             () => [this.payloadStore.selectedContainer.hasError],
-            (newValue: any, oldValue: any) => {}
-        );
+            (newValue: any, oldValue: any) => {} // just checks if .hasError has updated
+        ); */
         new Swiper(".swiper-container", {
             slidesPerView: "auto",
             spaceBetween: 20,
@@ -162,7 +159,7 @@ export default {
             this.payloadStore.selectedContainer.index = index;
         },
         getButtonText(index: number): string {
-            return index === this.selectedCardIndex ? "✓" : "+";
+            return index === this.selectedCardIndex ? "✓" : "Hyr";
         }
     },
 
@@ -170,29 +167,9 @@ export default {
 </script>
 
 <style scoped>
-.hide-alert {
-    display: none;
-}
 
-.swiper-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    display: flex;
-    transition-property: transform;
-    transition-timing-function: var(--swiper-wrapper-transition-timing-function,initial);
-    box-sizing: content-box;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: center;
-    flex-wrap: nowrap;
-    align-items: baseline;
-}
 .swiper-container {
-    width: 100%;
-    max-width: 315px;
-    height: auto;
+    width: 0;
     padding: 2rem;
 }
 
@@ -227,8 +204,7 @@ export default {
     min-height: 62px;
 }
 
-.info-button,
-.info-popup button {
+.info-button {
     cursor: pointer;
     padding: 10px;
     width: 80%;
@@ -238,19 +214,36 @@ export default {
     color: #2985e1;
 }
 
-
+.info-popup button{
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    width: 50%;
+    border: none;
+    border-radius: 40px;
+    /* background-color: #c0e0ff; */
+    color: #2985e1;
+}
 
 .info-popup {
     position: fixed;
     text-align: center;
     margin: 20px;
-    width: 90vw;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    /* max-width: 400px; */
+    padding: 30px;
     background: white;
     box-shadow: #00000028 4px 4px 20px;
     border-radius: 24px;
     z-index: 9999;
+}
+
+.selected {
+    background: #2894f3;
+    /* min-height: 62px; */
+}
+
+.not-selected-container {
+    outline: 2px solid #ff5d5d;
 }
 
 .animation-in {
@@ -279,8 +272,4 @@ export default {
     }
 }
 
-.selected {
-    background: #7534ff;
-    min-height: 62px;
-}
 </style>
