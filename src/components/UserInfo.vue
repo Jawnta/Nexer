@@ -1,18 +1,15 @@
-<script setup lang="ts">
-// import { usePayloadStore } from "@/store/orderStore";;
-// const payloadStore = usePayloadStore();
-</script>
+<script setup lang="ts"></script>
 <template>
     <h1>Dina uppgifter</h1>
-    <fieldset style="position: relative;">
+    <fieldset>
         <div class="userinfo">
-        <label>Förnamn</label>
+        <label>Förnamn *</label>
         <input
             v-model="payloadStore.firstName.value"
             :class="{ 'input-error': payloadStore.firstName.hasError }"
             @focus="payloadStore.clearErrorOnFocus('firstName')"
         /><br />
-        <label>Efternamn</label>
+        <label>Efternamn *</label>
         <input
             v-model="payloadStore.lastName.value"
             :class="{ 'input-error': payloadStore.lastName.hasError }"
@@ -22,36 +19,35 @@
         <input v-model="payloadStore.socialSecurity.value" /><br />
         <label>Telefonnummer</label>
         <input v-model="payloadStore.phoneNumber.value" /><br />
-        <label>E-postadress</label>
+        <label>E-postadress *</label>
         <input
             v-model="payloadStore.email.value"
             :class="{ 'input-error': payloadStore.email.hasError }"
             @focus="payloadStore.clearErrorOnFocus('email')"
         /><br />
-        <label>Adress</label>
+        <label>Adress *</label>
         <input
             v-model="payloadStore.address.value"
             :class="{ 'input-error': payloadStore.address.hasError }"
             @focus="payloadStore.clearErrorOnFocus('address')"
         /><br />
-        <label>Postnummer</label>
+        <label>Postnummer *</label>
         <input
             v-model="payloadStore.zipCode.value"
             :class="{ 'input-error': payloadStore.zipCode.hasError }"
             @focus="payloadStore.clearErrorOnFocus('zipCode')"
         />
         <br />
-        <label>Postort</label>
+        <label>Postort *</label>
         <input
             v-model="payloadStore.city.value"
             :class="{ 'input-error': payloadStore.city.hasError }"
             @focus="payloadStore.clearErrorOnFocus('city')"
         />
         <br />
-        <div class="message-box">
         <label>Meddelande</label>
         <textarea v-model="payloadStore.message.value"></textarea>
-    </div>
+        <p style="color: #374149"><i>* Obligatorisk</i></p>
     </div>
     </fieldset>
     
@@ -82,53 +78,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
 fieldset {
-    position: relative;
-    width: 400px;
+    /* position: relative; */
+    /* width: 400px; */
     border: none;
 }
-.message-box {
-    display: flex;
-    text-align: left;
-    flex-flow: column wrap;
-    width: 100%;
-    margin-bottom: 24px;
-}
-.message-box label {
-    margin-left: 5px;
-    margin-bottom: 5px;
+
+textarea {
+    resize: none;
 }
 
-.message-box textarea {
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #919191;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    padding: 12px 12px;
-    height: 220px;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.message-box textarea {
-    border: 2px solid #ededed;
-    border-radius: 6px;
-    box-shadow: none;
-    color: #1e1e1e;
-    font-family: Inter-400, sans-serif;
-    font-size: 1rem;
-}
-.userinfo input {
-    max-width: 400px;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #919191;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    padding: 6px 12px;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
 .userinfo {
     width: 100%;
     text-align: left;
@@ -139,23 +100,36 @@ fieldset {
 .userinfo label {
     margin-left: 5px;
     margin-bottom: 5px;
+    width: fit-content;
 }
 
-.userinfo input {
-    border: 2px solid #ededed;
+.userinfo input,
+.userinfo textarea {
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    padding: 6px 12px;
+    border: none;
     border-radius: 6px;
-    box-shadow: none;
+    outline: 2px solid #ededed;
+    transition: outline 0.15s ease-in-out;
     color: #1e1e1e;
     font-family: Inter-400, sans-serif;
     font-size: 1rem;
     height: 3rem;
 }
 
-.userinfo input:focus {
-    outline: rgb(151, 149, 149) solid 1px;
+.userinfo textarea {
+    padding: 22px 12px;
+    height: 180px;
+}
+
+.userinfo input:focus,
+.userinfo textarea:focus {
+    outline: rgb(151, 149, 149) solid 2px;
 }
 
 .input-error {
-    border: 2px solid rgba(255, 0, 0, 0.8) !important;
+    outline: 2px solid #ff5d5d !important;
 }
 </style>

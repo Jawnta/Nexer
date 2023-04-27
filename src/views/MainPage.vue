@@ -6,7 +6,6 @@ import MapContainer from "@/components/MapContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import OrderButton from "@/components/OrderButton.vue";
 import ArButton from "@/components/ArButton.vue";
-import MessageBox from "@/components/MessageBox.vue";
 </script>
 
 <template>
@@ -16,6 +15,5 @@ import MessageBox from "@/components/MessageBox.vue";
     <MapContainer />
     <Calender />
     <UserInfo />
-    <MessageBox />
     <OrderButton />
 </template>

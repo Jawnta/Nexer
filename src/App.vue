@@ -3,20 +3,13 @@ import TopLogo from "@/components/TopLogo.vue";
 </script>
 
 <template>
-    <div class="wrapper">
-        <div class="main-wrapper">
-            <TopLogo />
-            <RouterView />
-        </div>
+    <div class="main-wrapper">
+        <TopLogo />
+        <RouterView />
     </div>
 </template>
 
 <style>
-.wrapper {
-    display: flex;
-    flex-flow: column wrap;
-    background: #ffffff;
-}
 
 p,
 h1,
@@ -34,6 +27,5 @@ button {
     align-items: center;
     background: #f5f5f5;
     overflow: hidden;
-    min-height: 100vh;
 }
 </style>
