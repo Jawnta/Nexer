@@ -17,7 +17,6 @@
     "@fawmi/vue-google-maps": "^0.9.67",
     "@types/nodemailer": "^6.4.7",
     "@vuepic/vue-datepicker": "^4.0.0",
-    "aframe": "^1.4.1",
     "ar.js": "^2.2.2",
     "dayjs": "^1.11.7",
     "emailjs-com": "^3.2.0",
