@@ -1,5 +1,5 @@
 <template>
-    <canvas ref="canvas" id="canvas"></canvas>
+    <canvas v-if="arStarted" ref="canvas" id="canvas"></canvas>
     <div ref="overlay" id="overlay">
         <button  ref="picture" class="picture-button" v-show="containerIsPlaced">
         TA BILD
@@ -157,6 +157,7 @@ export default {
                 this.hitTestSourceInitialized = false;
                 this.hitTestSource = null;
                 // Redirect the user to home after the STOP AR button is clicked
+                this.arStarted;
                 this.$router.push({
                 name: "home",
             });
