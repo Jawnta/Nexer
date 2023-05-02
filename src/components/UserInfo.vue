@@ -3,52 +3,76 @@
     <h1>Dina uppgifter</h1>
     <fieldset>
         <div class="userinfo">
-        <label>Förnamn *</label>
-        <input
-            v-model="payloadStore.firstName.value"
-            :class="{ 'input-error': payloadStore.firstName.hasError }"
-            @focus="payloadStore.clearErrorOnFocus('firstName')"
-        /><br />
-        <label>Efternamn *</label>
-        <input
-            v-model="payloadStore.lastName.value"
-            :class="{ 'input-error': payloadStore.lastName.hasError }"
-            @focus="payloadStore.clearErrorOnFocus('lastName')"
-        /><br />
-        <label>Personnummer</label>
-        <input v-model="payloadStore.socialSecurity.value" /><br />
-        <label>Telefonnummer</label>
-        <input v-model="payloadStore.phoneNumber.value" /><br />
-        <label>E-postadress *</label>
-        <input
-            v-model="payloadStore.email.value"
-            :class="{ 'input-error': payloadStore.email.hasError }"
-            @focus="payloadStore.clearErrorOnFocus('email')"
-        /><br />
-        <label>Adress *</label>
-        <input
-            v-model="payloadStore.address.value"
-            :class="{ 'input-error': payloadStore.address.hasError }"
-            @focus="payloadStore.clearErrorOnFocus('address')"
-        /><br />
-        <label>Postnummer *</label>
-        <input
-            v-model="payloadStore.zipCode.value"
-            :class="{ 'input-error': payloadStore.zipCode.hasError }"
-            @focus="payloadStore.clearErrorOnFocus('zipCode')"
-        />
-        <br />
-        <label>Postort *</label>
-        <input
-            v-model="payloadStore.city.value"
-            :class="{ 'input-error': payloadStore.city.hasError }"
-            @focus="payloadStore.clearErrorOnFocus('city')"
-        />
-        <br />
-        <label>Meddelande</label>
-        <textarea v-model="payloadStore.message.value"></textarea>
-        <p style="color: #374149"><i>* Obligatorisk</i></p>
-    </div>
+            <label for="given-name">Förnamn *</label>
+            <input
+                id="given-name"
+                v-model="payloadStore.firstName.value"
+                :class="{ 'input-error': payloadStore.firstName.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('firstName')"
+            /><br />
+
+            <label for="family-name">Efternamn *</label>
+            <input
+                id="family-name"
+                v-model="payloadStore.lastName.value"
+                :class="{ 'input-error': payloadStore.lastName.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('lastName')"
+            /><br />
+
+            <label for="ssn">Personnummer</label>
+            <input
+                id="ssn"
+                v-model="payloadStore.socialSecurity.value"
+            /><br />
+
+            <label for="tel">Telefonnummer</label>
+            <input
+                id="tel"
+                type="tel"
+                v-model="payloadStore.phoneNumber.value"
+            /><br />
+
+            <label for="email">E-postadress *</label>
+            <input
+                type="email"
+                id="email"
+                pattern=".+@"
+                v-model="payloadStore.email.value"
+                :class="{ 'input-error': payloadStore.email.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('email')"
+            /><br />
+
+            <label for="street-address">Adress *</label>
+            <input
+                id="street-address"
+                v-model="payloadStore.address.value"
+                :class="{ 'input-error': payloadStore.address.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('address')"
+            /><br />
+
+            <label for="postal-code">Postnummer *</label>
+            <input
+                id="postal-code"
+                v-model="payloadStore.zipCode.value"
+                :class="{ 'input-error': payloadStore.zipCode.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('zipCode')"
+            /><br />
+
+            <label for="city">Ort *</label>
+            <input
+                id="city"
+                v-model="payloadStore.city.value"
+                :class="{ 'input-error': payloadStore.city.hasError }"
+                @focus="payloadStore.clearErrorOnFocus('city')"
+            /><br />
+
+            <label for="message">Meddelande</label>
+            <textarea
+                id="message"
+                v-model="payloadStore.message.value"
+            ></textarea>
+            <p style="color: #374149"><i>* Obligatorisk</i></p>
+        </div>
     </fieldset>
     
 </template>

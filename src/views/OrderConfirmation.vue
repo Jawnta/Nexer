@@ -4,10 +4,14 @@ const payloadStore = usePayloadStore();
 </script>
 <template>
     <div class="main">
-        <h1>Order Confirmation</h1>
+        <h1>Tack för din beställning!</h1>
         <div class="order-details" v-if="payloadStore">
+            <h2>Order:</h2>
+            <p>Container: {{ payloadStore.selectedContainer.value?.title }}</p>
             <p>Leveransdatum: {{ payloadStore.deliveryDate.value }}</p>
             <p>Upphätmningsdatum: {{ payloadStore.pickupDate.value }}</p>
+
+            <h2>Dina uppgifter:</h2>
             <p>Förnamn: {{ payloadStore.firstName.value }}</p>
             <p>Efternamn: {{ payloadStore.lastName.value }}</p>
             <p>Personnummer: {{ payloadStore.socialSecurity.value }}</p>
@@ -16,7 +20,6 @@ const payloadStore = usePayloadStore();
             <p>Gatuadress: {{ payloadStore.address.value }}</p>
             <p>Postnummer: {{ payloadStore.zipCode.value }}</p>
             <p>Ort: {{ payloadStore.city.value }}</p>
-            <p>Container: {{ payloadStore.selectedContainer.value?.title }}</p>
         </div>
     </div>
 </template>

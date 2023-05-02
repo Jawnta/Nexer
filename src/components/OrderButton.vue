@@ -12,12 +12,7 @@
     <div>
         <button
             class="order-button"
-            @click="
-                () => {
-                    handleClick();
-                    // sendAdminEmail();
-                }
-            "
+            @click="handleClick"
         >
             Beställ
         </button>
@@ -41,62 +36,53 @@ export default defineComponent({
     },
     methods: {
         handleClick() {
-            const payloadStore = usePayloadStore();
-            if (!payloadStore.validateFields()) {
+            if (!this.payloadStore.validateFields()) {
                 return false;
             }
 
+            /* this.sendDataToApi();
+            this.sendAdminEmail(); */
             this.$router.push("/OrderConfirmation");
         },
-        // sendEmail() {
-        //     emailjs
-        //         .send(
-        //             "service_ne3xu3v",
-        //             "template_chpkccp",
-        //             {
-        //                 to_name: "Recipient Name",
-        //                 from_name: "Your Name",
-        //                 message:
-        //                     "This is a test email sent from Vue.js using EmailJS and Gmailaaaaaaaaaaaa.",
-        //                 to_email: "jawntalol@gmail.com",
-        //             },
-        //             "aJoppP8gvteb65_ur"
-        //         )
-        //         .then(
-        //             function (response) {
-        //                 console.log("SUCCESS!", response.status, response.text);
-        //             },
-        //             function (error) {
-        //                 console.log("FAILED...", error);
-        //             }
-        //         );
-        // },
-        sendAdminEmail() {
+        returnOrderData() {
             const payloadStore = usePayloadStore();
+            const adminEmail = "zakaharif@hotmail.se";
+            const markerLink = "https://www.google.com/maps/search/?api=1&query="+
+            `${payloadStore.containerMarker.value.lat},`+
+            `${payloadStore.containerMarker.value.lng}`;
+            const imageSrc = "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=5";
+
+            return {
+                to_email: adminEmail,
+
+                deliveryDate: payloadStore.deliveryDate.value,
+                pickupDate: payloadStore.pickupDate.value,
+                firstname: payloadStore.firstName.value,
+                lastname: payloadStore.lastName.value,
+                socialSecurity: payloadStore.socialSecurity.value,
+                phoneNumber: payloadStore.phoneNumber.value,
+                email: payloadStore.email.value,
+                address: payloadStore.address.value,
+                zipcode: payloadStore.zipCode.value,
+                city: payloadStore.city.value,
+                imageSrc: imageSrc,
+                title: payloadStore.selectedContainer.value?.title || "",
+                length: payloadStore.selectedContainer.value?.length || 0,
+                width: payloadStore.selectedContainer.value?.width || "",
+                height: payloadStore.selectedContainer.value?.height || "",
+                markerLink: markerLink,
+            }
+        },
+        /* sendEmail() {
             emailjs
                 .send(
                     "service_ne3xu3v",
-                    "template_1e44wa8",
+                    "template_chpkccp",
                     {
-                        deliveryDate: payloadStore.deliveryDate.value,
-                        pickupDate: payloadStore.pickupDate.value,
-                        firstname: payloadStore.firstName.value,
-                        lastname: payloadStore.lastName.value,
-                        socialSecurity: payloadStore.socialSecurity.value,
-                        phoneNumber: payloadStore.phoneNumber.value,
-                        email: payloadStore.email.value,
-                        address: payloadStore.address.value,
-                        zipcode: payloadStore.zipCode.value,
-                        city: payloadStore.city.value,
-                        title:
-                            payloadStore.selectedContainer.value?.title || "",
-                        length:
-                            payloadStore.selectedContainer.value?.length || 0,
-                        width:
-                            payloadStore.selectedContainer.value?.width || "",
-                        height:
-                            payloadStore.selectedContainer.value?.height || "",
-
+                        to_name: "Recipient Name",
+                        from_name: "Your Name",
+                        message:
+                            "This is a test email sent from Vue.js using EmailJS and Gmail.",
                         to_email: "jawntalol@gmail.com",
                     },
                     "aJoppP8gvteb65_ur"
@@ -109,7 +95,38 @@ export default defineComponent({
                         console.log("FAILED...", error);
                     }
                 );
+        }, */
+        sendAdminEmail() {
+            const order_data = this.returnOrderData();
+            emailjs.send(
+                "service_ne3xu3v",
+                "template_1e44wa8",
+                order_data,
+                "aJoppP8gvteb65_ur"
+            )
+            .then(
+                function (response) {
+                    console.log("SUCCESS!", response.status, response.text);
+                },
+                function (error) {
+                    console.log("FAILED...", error);
+                }
+            );
         },
+        async sendDataToApi() {
+            const order_data = this.returnOrderData();
+            try {
+                await fetch("http://localhost:8008/orders", {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(order_data)
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
     },
 });
 </script>
