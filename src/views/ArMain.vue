@@ -1,13 +1,13 @@
 <template>
     <canvas ref="canvas" id="canvas"></canvas>
     <div ref="overlay" id="overlay">
-        <button  ref="picture" class="picture-button" v-show="containerIsPlaced">
-        TA BILD
+        <button ref="picture" class="picture-button" v-show="containerIsPlaced">
+            TA BILD
         </button>
         <button ref="rotate" class="rotation-button" v-show="containerIsPlaced">
-        ROTERA 
+            ROTERA
         </button>
-        
+
     </div>
     <canvas ref="finalCanvas" id="finalCanvas" style="display:none;"></canvas>
     <video ref="cameraFeed" id="cameraFeed" style="display:none;" autoplay playsinline></video>
@@ -47,10 +47,10 @@ export default {
                 20
             );
             this.camera.position.z = 1;
-           // CreatE a THREE WebGLRenderer
+            // CreatE a THREE WebGLRenderer
             this.canvas = this.$refs.canvas;
-            
-            this.gl = this.canvas.getContext('webgl', {xrCompatible: true});
+
+            this.gl = this.canvas.getContext('webgl', { xrCompatible: true });
             this.renderer = new THREE.WebGLRenderer({
                 canvas: this.canvas,
                 context: this.gl,
@@ -63,20 +63,20 @@ export default {
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.renderer.xr.enabled = true;
-    
+
             // Create a THREE light object
             const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
             light.position.set(0.5, 1, 0.25);
             this.scene.add(light);
-            
+
             // Load the model and reticle to the scene
             this.addReticleToScene();
-            this.addModelToScene(); 
+            this.addModelToScene();
             // Create THREE controller to place the container
             this.controller = this.renderer.xr.getController(0);
             this.controller.addEventListener("select", this.onSelect);
             this.scene.add(this.controller);
-            
+
             // Create a button to enter  a AR session 
             this.overlay = this.$refs.overlay;
             this.button = ARButton.createButton(this.renderer, {
@@ -95,17 +95,17 @@ export default {
             this.takePictureButton = this.$refs.picture;
             this.rotationButton.addEventListener('beforexrselect', ev => ev.preventDefault());
             this.takePictureButton.addEventListener('beforexrselect', ev => ev.preventDefault());
-            
+
             this.rotationButton.addEventListener('click', () => {
                 this.rotate();
             });
-            
+
             this.takePictureButton.addEventListener('click', async () => {
                 try {
                     await this.startCamera();
                     setTimeout(() => {
                         this.takePicture();
-                    }, 40); 
+                    }, 40);
                 } catch (error) {
                     console.error(error);
                 }
@@ -120,11 +120,11 @@ export default {
             // Load the Model
             const loader = new GLTFLoader();
             const gltf = await loader.loadAsync(modelUrl);
-            this.model = gltf.scene; 
+            this.model = gltf.scene;
             this.model.outputEncoding = THREE.sRGBEncoding;
-            this.model.scale.multiplyScalar(0.005); 
-            this.model.visible = false; 
-            this.scene.add(this.model); 
+            this.model.scale.multiplyScalar(0.005);
+            this.model.visible = false;
+            this.scene.add(this.model);
         },
         addReticleToScene() {
             const geometry = new THREE.RingGeometry(0.15, 0.2, 32).rotateX(
@@ -133,13 +133,13 @@ export default {
             const material = new THREE.MeshBasicMaterial();
             this.reticle = new THREE.Mesh(geometry, material);
             this.reticle.matrixAutoUpdate = false;
-            this.reticle.visible = false; 
+            this.reticle.visible = false;
             this.scene.add(this.reticle);
         },
         onSelect() {
             if (this.reticle.visible && this.model) {
-                this.model.visible = true; 
-    
+                this.model.visible = true;
+
                 this.model.position.setFromMatrixPosition(this.reticle.matrix);
                 this.model.quaternion.setFromRotationMatrix(this.reticle.matrix);
                 this.model.position.x += 0.25;
@@ -156,10 +156,10 @@ export default {
             this.renderer.setAnimationLoop(this.render);
         },
         async initializeHitTestSource() {
-            const session = this.renderer.xr.getSession({ 
-                mode: "immersive-ar", 
+            const session = this.renderer.xr.getSession({
+                mode: "immersive-ar",
                 requiredFeatures: ["hit-test"]
-            }); 
+            });
             const viewerSpace = await session.requestReferenceSpace("viewer");
             this.hitTestSource = await session.requestHitTestSource({
                 space: viewerSpace,
@@ -173,13 +173,24 @@ export default {
                 // Redirect the user to home after the STOP AR button is clicked
                 this.arStarted;
                 this.$router.push({
-                name: "home",
-            });
+                    name: "home",
+                });
             });
         },
         render(timestamp, frame) {
-            if(!this.arStarted) {
-                this.button.click();
+            if (!this.arStarted) {
+                if ('ontouchstart' in window) {
+                    setTimeout(() => {
+                        const clickEvent = new MouseEvent('click', {
+                            view: window,
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        this.button.dispatchEvent(clickEvent);
+                    }, 10);
+                } else {
+                    this.button.click();
+                }
                 this.arStarted = true;
             }
 
@@ -205,17 +216,17 @@ export default {
         },
         async startCamera() {
             try {
-            // Set the constraints for the getUserMedia function
-            const constraints = {
-                video: {
-                    facingMode: 'environment',
-                }
-            };
-            // Get access to the back camera
-            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                // Set the constraints for the getUserMedia function
+                const constraints = {
+                    video: {
+                        facingMode: 'environment',
+                    }
+                };
+                // Get access to the back camera
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
-            // Attach the camera stream to the video element
-            this.video.srcObject = stream;
+                // Attach the camera stream to the video element
+                this.video.srcObject = stream;
 
             } catch (error) {
                 console.error('Failed to get camera stream', error);
@@ -231,7 +242,7 @@ export default {
 
             const ctx = finalCanvas.getContext('2d');
 
-            ctx.drawImage(this.video, 0, 0,this.canvas.width, this.canvas.height);
+            ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
             ctx.drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height);
 
             const finalDataURL = finalCanvas.toDataURL('image/jpeg');
@@ -254,7 +265,7 @@ export default {
     position: absolute;
     width: 100vw;
     height: 100vh;
-} 
+}
 
 .picture-button {
     right: 20px;
@@ -273,9 +284,11 @@ export default {
     cursor: pointer;
     width: 100px;
 }
+
 .picture-button:hover {
     opacity: 1;
 }
+
 .rotation-button {
     right: 0;
     position: absolute;
@@ -294,6 +307,7 @@ export default {
     left: 19px;
     width: 100px;
 }
+
 .rotation-button:hover {
     opacity: 1;
 }
