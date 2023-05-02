@@ -1,10 +1,10 @@
 <template>
     <canvas ref="canvas" id="canvas"></canvas>
     <div ref="overlay" id="overlay">
-        <button  ref="picture" class="picture-button" v-show="arSessionStarted">
+        <button  ref="picture" class="picture-button" v-show="containerIsPlaced">
         TA BILD
         </button>
-        <button ref="rotate" class="rotation-button" v-show="arSessionStarted">
+        <button ref="rotate" class="rotation-button" v-show="containerIsPlaced">
         ROTERA 
         </button>
     </div>
@@ -26,7 +26,8 @@ export default {
     data() {
         return {
             payloadStore: usePayloadStore(),
-            arSessionStarted: false,
+            containerIsPlaced: false,
+            arStarted: false,
         };
     },
     methods: {
@@ -71,7 +72,7 @@ export default {
             
             // Create a button to enter  a AR session 
             this.overlay = this.$refs.overlay;
-            const button = ARButton.createButton(this.renderer, {
+            this.button = ARButton.createButton(this.renderer, {
                 requiredFeatures: ["hit-test"],
                 optionalFeatures: [
                     "dom-overlay",
@@ -81,9 +82,7 @@ export default {
                     root: this.overlay,
                 },
             });
-            this.overlay.appendChild(button);
-            // Add an id to the ar button
-            button.id = "my-id";
+            this.overlay.appendChild(this.button);
             //Initiate the event listeners for the rotate and take picture buttons
             this.rotationButton = this.$refs.rotate;
             this.takePictureButton = this.$refs.picture;
@@ -131,7 +130,7 @@ export default {
                 this.model.quaternion.setFromRotationMatrix(this.reticle.matrix);
                 this.model.position.x += 0.25;
                 this.model.position.z -= 0.25;
-                this.arSessionStarted = true;
+                this.containerIsPlaced = true;
             }
         },
         onWindowResize() {
@@ -153,16 +152,23 @@ export default {
             });
             this.localSpace = await session.requestReferenceSpace("local");
             this.hitTestSourceInitialized = true;
+
             session.addEventListener("end", () => {
                 this.hitTestSourceInitialized = false;
                 this.hitTestSource = null;
                 // Redirect the user to home after the STOP AR button is clicked
+                this.arStarted;
                 this.$router.push({
                 name: "home",
             });
             });
         },
         render(timestamp, frame) {
+            if(!this.arStarted) {
+                this.button.click();
+                this.arStarted = true;
+            }
+
             if (frame) {
                 if (!this.hitTestSourceInitialized) {
                     this.initializeHitTestSource();
