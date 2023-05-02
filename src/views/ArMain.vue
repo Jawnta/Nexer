@@ -1,5 +1,5 @@
 <template>
-    <canvas v-if="arStarted" ref="canvas" id="canvas"></canvas>
+    <canvas ref="canvas" id="canvas"></canvas>
     <div ref="overlay" id="overlay">
         <button  ref="picture" class="picture-button" v-show="containerIsPlaced">
         TA BILD
