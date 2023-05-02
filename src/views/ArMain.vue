@@ -7,7 +7,11 @@
         <button ref="rotate" class="rotation-button" v-show="containerIsPlaced">
         ROTERA 
         </button>
+        
     </div>
+    <canvas ref="finalCanvas" id="finalCanvas" style="display:none;"></canvas>
+    <video ref="cameraFeed" id="cameraFeed" style="display:none;" autoplay playsinline></video>
+    <a ref="download"></a>
 </template>
 <script lang="ts">
 import * as THREE from "three";
@@ -32,6 +36,8 @@ export default {
     },
     methods: {
         init() {
+            // Global variables for takePicture function
+            this.video = this.$refs.cameraFeed;
             // Create a THREE scene
             this.scene = new THREE.Scene()
             this.camera = new THREE.PerspectiveCamera(
@@ -43,13 +49,14 @@ export default {
             this.camera.position.z = 1;
            // CreatE a THREE WebGLRenderer
             this.canvas = this.$refs.canvas;
+            
             this.gl = this.canvas.getContext('webgl', {xrCompatible: true});
             this.renderer = new THREE.WebGLRenderer({
                 canvas: this.canvas,
                 context: this.gl,
                 antialias: true,
                 alpha: true,
-                powerPreference: 'high-performance', 
+                //powerPreference: 'high-performance', 
                 xrCompatible: true,
                 preserveDrawingBuffer: true
             });
@@ -93,8 +100,15 @@ export default {
                 this.rotate();
             });
             
-            this.takePictureButton.addEventListener('click', () => {
-                this.takePicture();
+            this.takePictureButton.addEventListener('click', async () => {
+                try {
+                    await this.startCamera();
+                    setTimeout(() => {
+                        this.takePicture();
+                    }, 40); 
+                } catch (error) {
+                    console.error(error);
+                }
             });
             // Add event listener to adjust the size of the window
             window.addEventListener("resize", this.onWindowResize, false);
@@ -189,12 +203,43 @@ export default {
                 this.renderer.render(this.scene, this.camera);
             }
         },
-        takePicture() {
-            //Take Picture
-            this.screenshoot = this.renderer.domElement.toDataURL();
-            console.log(this.screenshoot);
-            alert("Work in Progress!");
+        async startCamera() {
+            try {
+            // Set the constraints for the getUserMedia function
+            const constraints = {
+                video: {
+                    facingMode: 'environment',
+                }
+            };
+            // Get access to the back camera
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+            // Attach the camera stream to the video element
+            this.video.srcObject = stream;
+
+            } catch (error) {
+                console.error('Failed to get camera stream', error);
+            }
         },
+        takePicture() {
+            // Cache DOM element references
+            const finalCanvas = this.$refs.finalCanvas;
+            const downloadLink = this.$refs.download;
+
+            finalCanvas.width = this.canvas.width;
+            finalCanvas.height = this.canvas.height;
+
+            const ctx = finalCanvas.getContext('2d');
+
+            ctx.drawImage(this.video, 0, 0,this.canvas.width, this.canvas.height);
+            ctx.drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height);
+
+            const finalDataURL = finalCanvas.toDataURL('image/jpeg');
+            downloadLink.href = finalDataURL;
+            downloadLink.download = 'snapshot.jpeg';
+            downloadLink.click();
+        },
+
         rotate() {
             //Checks if the model exists
             if (this.model && this.model.visible) {
@@ -205,12 +250,12 @@ export default {
 };
 </script>
 <style scoped>
-  #canvas {
-        position: absolute;
-        width: 98vw;
-        height: 98vh;
-      }
-      
+#canvas {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+} 
+
 .picture-button {
     right: 20px;
     position: absolute;
