@@ -25,5 +25,6 @@ button {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
+    overflow-x: hidden;
 }
 </style>
