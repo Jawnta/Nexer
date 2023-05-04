@@ -9,8 +9,6 @@
         </button>
 
     </div>
-    <canvas ref="finalCanvas" id="finalCanvas" style="display:none;"></canvas>
-    <video ref="cameraFeed" id="cameraFeed" style="display:none;" autoplay playsinline></video>
     <a ref="download"></a>
 </template>
 <script lang="ts">
@@ -56,7 +54,7 @@ export default {
                 context: this.gl,
                 antialias: true,
                 alpha: true,
-                //powerPreference: 'high-performance', 
+                powerPreference: 'high-performance', 
                 xrCompatible: true,
                 preserveDrawingBuffer: true
             });
@@ -100,15 +98,12 @@ export default {
                 this.rotate();
             });
 
-            this.takePictureButton.addEventListener('click', async () => {
-                try {
-                    await this.startCamera();
-                    setTimeout(() => {
-                        this.takePicture();
-                    }, 40);
-                } catch (error) {
-                    console.error(error);
-                }
+            this.takePictureButton.addEventListener('click', () => {
+                let downloadLink = this.$refs.download;
+                const finalDataURL = this.canvas.toDataURL('image/png');
+                downloadLink.href = finalDataURL;
+                downloadLink.download = 'snapshot.png';
+                downloadLink.click();
             });
             // Add event listener to adjust the size of the window
             window.addEventListener("resize", this.onWindowResize, false);
@@ -214,43 +209,6 @@ export default {
                 this.renderer.render(this.scene, this.camera);
             }
         },
-        async startCamera() {
-            try {
-                // Set the constraints for the getUserMedia function
-                const constraints = {
-                    video: {
-                        facingMode: 'environment',
-                    }
-                };
-                // Get access to the back camera
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-                // Attach the camera stream to the video element
-                this.video.srcObject = stream;
-
-            } catch (error) {
-                console.error('Failed to get camera stream', error);
-            }
-        },
-        takePicture() {
-            // Cache DOM element references
-            const finalCanvas = this.$refs.finalCanvas;
-            const downloadLink = this.$refs.download;
-
-            finalCanvas.width = this.canvas.width;
-            finalCanvas.height = this.canvas.height;
-
-            const ctx = finalCanvas.getContext('2d');
-
-            ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-            ctx.drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height);
-
-            const finalDataURL = finalCanvas.toDataURL('image/jpeg');
-            downloadLink.href = finalDataURL;
-            downloadLink.download = 'snapshot.jpeg';
-            downloadLink.click();
-        },
-
         rotate() {
             //Checks if the model exists
             if (this.model && this.model.visible) {
