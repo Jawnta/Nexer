@@ -111,6 +111,7 @@ export default {
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
                     modelPath: "/src/assets/models/8c.gltf",
+                    scale: 0.017
                 },
                 {
                     logo: "/src/assets/img/container_10.png",
@@ -127,6 +128,7 @@ export default {
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
                     modelPath: "/src/assets/models/10c.gltf",
+                    scale: 0.025
                 },
                 {
                     logo: "/src/assets/img/container_20.png",
@@ -143,6 +145,7 @@ export default {
                     unsortedWaste: "2250 kronor per ton",
                     gardenWaste: "363 kronor per ton",
                     modelPath: "/src/assets/models/20c.gltf",
+                    scale: 0.017
                 },
             ],
         };
