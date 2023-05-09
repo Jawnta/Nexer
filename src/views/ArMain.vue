@@ -4,25 +4,11 @@
         <button ref="picture" class="gui-button" v-show="containerIsPlaced" style="bottom: 40px; left: 0; right: 0;">
             <img src="/src/assets/img/camera.png" style="width: 80px">
         </button>
-
-        <button ref="rotate_right" class="rotation-button hoger" v-show="containerIsPlaced">
-            Rotera höger 
-        </button>
-        
-        <button ref="rotate_left" class="rotation-button vanster" v-show="containerIsPlaced">
-            Roter vänster
-        </button>
-
         <a ref="rotate_right"  v-show="containerIsPlaced"  class="arrow right"></a>
         <a ref="rotate_left"  v-show="containerIsPlaced"  class="arrow left"></a>
-
-
-         
-
         <button @click="backButton" class="gui-button" style="bottom: 40px; left: 50px;">
             <img src="/src/assets/img/backicon.png" style="width: 50px">
         </button>
-
     </div>
     <canvas ref="finalCanvas" id="finalCanvas" style="display:none;"></canvas>
     <!-- 
@@ -64,7 +50,7 @@ export default defineComponent({
     methods: {
         init() {
             // Global variables for takePicture function
-            //this.video = this.$refs.cameraFeed;
+            // this.video = this.$refs.cameraFeed;
             // Create a THREE scene
             this.scene = new THREE.Scene();
             this.camera = new THREE.PerspectiveCamera(
@@ -73,7 +59,7 @@ export default defineComponent({
                 0.1,
                 20
             );
-            this.camera.position.z = 5;
+            this.camera.position.z = 1;
             // Create a THREE WebGLRenderer
             this.canvas = this.$refs.canvas;
 
@@ -121,28 +107,26 @@ export default defineComponent({
 
             this.overlay.appendChild(this.button);
             //Initiate the event listeners for the rotate and take picture buttons
-            this.rotationButtonLeft = this.$refs.rotate_left;
-            this.rotationButtonLeft = this.$refs.rotate_left;
-
-            this.rotationButtonRight = this.$refs.rotate_right;
-            this.rotationButtonRight = this.$refs.rotate_right;
-
-
             this.takePictureButton = this.$refs.picture;
+            this.rotationButtonLeft = this.$refs.rotate_left;
+            this.rotationButtonLeft = this.$refs.rotate_left;
+
+            this.rotationButtonRight = this.$refs.rotate_right;
+            this.rotationButtonRight = this.$refs.rotate_right;
+
+
             this.rotationButtonLeft.addEventListener('beforexrselect', ev => ev.preventDefault());
             this.rotationButtonRight.addEventListener('beforexrselect', ev => ev.preventDefault());
-
             this.takePictureButton.addEventListener('beforexrselect', ev => ev.preventDefault());
-
-
+            
             this.rotationButtonLeft.addEventListener('click', () => {
                 this.rotateLeft();
             });
 
             this.rotationButtonRight.addEventListener('click', () => {
                 this.rotateRight();
-
             });
+
             
             this.takePictureButton.addEventListener('click', async () => {
                 try {
@@ -304,7 +288,6 @@ export default defineComponent({
             downloadLink.click();
             */
         },
-
         rotateLeft() {
             //Checks if the model exists
             if (this.model && this.model.visible) {
@@ -326,58 +309,13 @@ export default defineComponent({
     position: absolute;
     width: 100vw;
     height: 100vh;
-
-}
-
-.picture-button {
-    right: 20px;
-    position: absolute;
-    bottom: 20px;
-    padding: 12px 6px;
-    color: rgb(255, 255, 255);
-    font: 13px sans-serif;
-    text-align: center;
-    opacity: 0.8;
-    outline: none;
-    z-index: 999;
-    cursor: pointer;
-    width: 100px;
-
-    border: none;
-    border-radius: 40px;
-    box-shadow: #00000028 4px 4px 20px;
-    background-color: #2c84d0;
-    min-height: 42px;
-}
-
-.picture-button:hover {
-    opacity: 1;
-}
-
+} 
 
 .gui-button {
     position: absolute;
-
-    bottom: 20px;
-    padding: 12px 6px;
-    color: rgb(255, 255, 255);
-    font: 13px sans-serif;
-    text-align: l;
-    opacity: 0.8;
-    outline: none;
-    z-index: 999;
-    cursor: pointer;
-    left: 19px;
-    width: 100px;
-
-    border: none;
-    border-radius: 40px;
-    box-shadow: #00000028 4px 4px 20px;
-    background-color: #2c84d0;
-    min-height: 42px;
+    background: none;
+     border: none;
 }
-
-
 
 .arrow {
     cursor: pointer;
@@ -400,7 +338,6 @@ export default defineComponent({
 .arrow.right {
   right: 50px;
   transform: translate3d(0, -50%, 0) rotate(45deg);
-
 }
 .arrow:hover {
   border-color: #2c84d0;
