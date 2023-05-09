@@ -12,8 +12,11 @@
         </button>
     </div>
     <canvas ref="finalCanvas" id="finalCanvas" style="display:none;"></canvas>
+    <!-- 
+    This an implementation part of the ta bild functionality
     <video ref="cameraFeed" id="cameraFeed" style="display:none;" autoplay playsinline></video>
     <a ref="download"></a>
+    -->
 </template>
 <script lang="ts">
 import * as THREE from "three";
@@ -252,6 +255,10 @@ export default defineComponent({
             }
         },
         takePicture() {
+
+            alert("Feature will be available in the next release")
+            /*
+            This an implementation part of the ta bild functionality
             // Cache DOM element references
             const finalCanvas = this.$refs.finalCanvas;
             const downloadLink = this.$refs.download;
@@ -268,6 +275,7 @@ export default defineComponent({
             downloadLink.href = finalDataURL;
             downloadLink.download = 'snapshot.jpeg';
             downloadLink.click();
+            */
         },
         rotate() {
             //Checks if the model exists
