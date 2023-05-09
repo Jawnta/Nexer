@@ -42,9 +42,9 @@ export default defineComponent({
         return {
             payloadStore: usePayloadStore(),
             containerIsPlaced: false,
-            hitTestInitialized: false,
+            /* hitTestInitialized: false,
             hitTestSource: null,
-            localSpace: null,
+            localSpace: null, */
         };
     },
     methods: {
@@ -63,13 +63,12 @@ export default defineComponent({
             // Create a THREE WebGLRenderer
             this.canvas = this.$refs.canvas;
 
-            this.gl = this.canvas.getContext('webgl', {xrCompatible: true, preserveDrawingBuffer: true});
+            this.gl = this.canvas.getContext('webgl', {xrCompatible: true});
             this.renderer = new THREE.WebGLRenderer({
                 canvas: this.canvas,
                 context: this.gl,
                 antialias: true,
                 alpha: true,
-                //powerPreference: 'high-performance', 
                 xrCompatible: true,
                 preserveDrawingBuffer: true
             });
@@ -106,28 +105,20 @@ export default defineComponent({
             this.button.textContent = '';
 
             this.overlay.appendChild(this.button);
+
             //Initiate the event listeners for the rotate and take picture buttons
             this.takePictureButton = this.$refs.picture;
             this.rotationButtonLeft = this.$refs.rotate_left;
-            this.rotationButtonLeft = this.$refs.rotate_left;
-
-            this.rotationButtonRight = this.$refs.rotate_right;
             this.rotationButtonRight = this.$refs.rotate_right;
 
-
-            this.rotationButtonLeft.addEventListener('beforexrselect', ev => ev.preventDefault());
-            this.rotationButtonRight.addEventListener('beforexrselect', ev => ev.preventDefault());
-            this.takePictureButton.addEventListener('beforexrselect', ev => ev.preventDefault());
-            
             this.rotationButtonLeft.addEventListener('click', () => {
-                this.rotateLeft();
+                this.rotate(-0.4);
             });
 
             this.rotationButtonRight.addEventListener('click', () => {
-                this.rotateRight();
+                this.rotate(0.4);
             });
 
-            
             this.takePictureButton.addEventListener('click', async () => {
                 try {
                     await this.startCamera();
@@ -238,10 +229,15 @@ export default defineComponent({
             this.hitTestInitialized = true;
 
             session.addEventListener("end", () => {
+                // Back button is pressed ...
                 this.hitTestInitialized = false;
                 this.hitTestSource = null;
-                // Redirect the user to home after the STOP AR button is clicked
+                // Turn off render
                 this.renderer.setAnimationLoop(null);
+                this.renderer.dispose();
+                session.end();
+                // remove canvas
+                // Redirect the user to home
                 this.$router.push({
                     name: "home",
                 });
@@ -288,17 +284,10 @@ export default defineComponent({
             downloadLink.click();
             */
         },
-        rotateLeft() {
+        rotate(direction: number) {
             //Checks if the model exists
             if (this.model && this.model.visible) {
-                this.model.rotation.y -= 0.4;
-            }
-        },
-
-        rotateRight() {
-            //Checks if the model exists
-            if (this.model && this.model.visible) {
-                this.model.rotation.y += 0.4;
+                this.model.rotation.y += direction;
             }
         },
     },
@@ -314,43 +303,42 @@ export default defineComponent({
 .gui-button {
     position: absolute;
     background: none;
-     border: none;
+    border: none;
 }
 
 .arrow {
     cursor: pointer;
-
-  position: absolute;
-  z-index: 999;
-  top: 50%;
-  width: 3vmin;
-  height: 3vmin;
-  background: transparent;
-  border-top: 1vmin solid white;
-  border-right: 1vmin solid white;
-  box-shadow: 0 0 0 lightgray;
-  transition: all 200ms ease;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    width: 3vmin;
+    height: 3vmin;
+    background: transparent;
+    border-top: 1vmin solid white;
+    border-right: 1vmin solid white;
+    box-shadow: 0 0 0 lightgray;
+    transition: all 200ms ease;
 }
 .arrow.left {
-  left: 50px;
-  transform: translate3d(0, -50%, 0) rotate(-135deg);
+    left: 50px;
+    transform: translate3d(0, -50%, 0) rotate(-135deg);
 }
 .arrow.right {
-  right: 50px;
-  transform: translate3d(0, -50%, 0) rotate(45deg);
+    right: 50px;
+    transform: translate3d(0, -50%, 0) rotate(45deg);
 }
 .arrow:hover {
-  border-color: #2c84d0;
-  box-shadow: 0.5vmin -0.5vmin 0 white;
+    border-color: #2c84d0;
+    box-shadow: 0.5vmin -0.5vmin 0 white;
 }
 .arrow:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-40%, -60%) rotate(45deg);
-  width: 200%;
-  height: 200%;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -60%) rotate(45deg);
+    width: 200%;
+    height: 200%;
 }
 
 </style>

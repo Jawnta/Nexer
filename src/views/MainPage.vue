@@ -6,6 +6,7 @@ import MapContainer from "@/components/MapContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import OrderButton from "@/components/OrderButton.vue";
 import ArButton from "@/components/ArButton.vue";
+import { defineComponent } from "vue";
 </script>
 
 <template>
@@ -16,10 +17,16 @@ import ArButton from "@/components/ArButton.vue";
     <Calender />
     <UserInfo />
     <OrderButton />
-
-
-  
 </template>
+
+<script lang="ts">
+export default defineComponent({
+    mounted() {
+        document.getElementById('canvas')?.remove();
+    },
+});
+</script>
+
 <style>
 
 #ARButton {
