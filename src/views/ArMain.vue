@@ -4,12 +4,25 @@
         <button ref="picture" class="gui-button" v-show="containerIsPlaced" style="bottom: 40px; left: 0; right: 0;">
             <img src="/src/assets/img/camera.png" style="width: 80px">
         </button>
-        <button ref="rotate" class="gui-button" v-show="containerIsPlaced" style="bottom: 40px; right: 50px;">
-            <img src="/src/assets/img/rotate.png" style="width: 50px">
+
+        <button ref="rotate_right" class="rotation-button hoger" v-show="containerIsPlaced">
+            Rotera höger 
         </button>
+        
+        <button ref="rotate_left" class="rotation-button vanster" v-show="containerIsPlaced">
+            Roter vänster
+        </button>
+
+        <a ref="rotate_right"  v-show="containerIsPlaced"  class="arrow right"></a>
+        <a ref="rotate_left"  v-show="containerIsPlaced"  class="arrow left"></a>
+
+
+         
+
         <button @click="backButton" class="gui-button" style="bottom: 40px; left: 50px;">
             <img src="/src/assets/img/backicon.png" style="width: 50px">
         </button>
+
     </div>
     <canvas ref="finalCanvas" id="finalCanvas" style="display:none;"></canvas>
     <!-- 
@@ -108,13 +121,27 @@ export default defineComponent({
 
             this.overlay.appendChild(this.button);
             //Initiate the event listeners for the rotate and take picture buttons
-            this.rotationButton = this.$refs.rotate;
+            this.rotationButtonLeft = this.$refs.rotate_left;
+            this.rotationButtonLeft = this.$refs.rotate_left;
+
+            this.rotationButtonRight = this.$refs.rotate_right;
+            this.rotationButtonRight = this.$refs.rotate_right;
+
+
             this.takePictureButton = this.$refs.picture;
-            this.rotationButton.addEventListener('beforexrselect', ev => ev.preventDefault());
+            this.rotationButtonLeft.addEventListener('beforexrselect', ev => ev.preventDefault());
+            this.rotationButtonRight.addEventListener('beforexrselect', ev => ev.preventDefault());
+
             this.takePictureButton.addEventListener('beforexrselect', ev => ev.preventDefault());
-            
-            this.rotationButton.addEventListener('click', () => {
-                this.rotate();
+
+
+            this.rotationButtonLeft.addEventListener('click', () => {
+                this.rotateLeft();
+            });
+
+            this.rotationButtonRight.addEventListener('click', () => {
+                this.rotateRight();
+
             });
             
             this.takePictureButton.addEventListener('click', async () => {
@@ -277,10 +304,18 @@ export default defineComponent({
             downloadLink.click();
             */
         },
-        rotate() {
+
+        rotateLeft() {
             //Checks if the model exists
             if (this.model && this.model.visible) {
                 this.model.rotation.y -= 0.4;
+            }
+        },
+
+        rotateRight() {
+            //Checks if the model exists
+            if (this.model && this.model.visible) {
+                this.model.rotation.y += 0.4;
             }
         },
     },
@@ -291,11 +326,94 @@ export default defineComponent({
     position: absolute;
     width: 100vw;
     height: 100vh;
-} 
+
+}
+
+.picture-button {
+    right: 20px;
+    position: absolute;
+    bottom: 20px;
+    padding: 12px 6px;
+    color: rgb(255, 255, 255);
+    font: 13px sans-serif;
+    text-align: center;
+    opacity: 0.8;
+    outline: none;
+    z-index: 999;
+    cursor: pointer;
+    width: 100px;
+
+    border: none;
+    border-radius: 40px;
+    box-shadow: #00000028 4px 4px 20px;
+    background-color: #2c84d0;
+    min-height: 42px;
+}
+
+.picture-button:hover {
+    opacity: 1;
+}
+
 
 .gui-button {
     position: absolute;
-    background: none;
+
+    bottom: 20px;
+    padding: 12px 6px;
+    color: rgb(255, 255, 255);
+    font: 13px sans-serif;
+    text-align: l;
+    opacity: 0.8;
+    outline: none;
+    z-index: 999;
+    cursor: pointer;
+    left: 19px;
+    width: 100px;
+
     border: none;
+    border-radius: 40px;
+    box-shadow: #00000028 4px 4px 20px;
+    background-color: #2c84d0;
+    min-height: 42px;
 }
+
+
+
+.arrow {
+    cursor: pointer;
+
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  width: 3vmin;
+  height: 3vmin;
+  background: transparent;
+  border-top: 1vmin solid white;
+  border-right: 1vmin solid white;
+  box-shadow: 0 0 0 lightgray;
+  transition: all 200ms ease;
+}
+.arrow.left {
+  left: 50px;
+  transform: translate3d(0, -50%, 0) rotate(-135deg);
+}
+.arrow.right {
+  right: 50px;
+  transform: translate3d(0, -50%, 0) rotate(45deg);
+
+}
+.arrow:hover {
+  border-color: #2c84d0;
+  box-shadow: 0.5vmin -0.5vmin 0 white;
+}
+.arrow:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -60%) rotate(45deg);
+  width: 200%;
+  height: 200%;
+}
+
 </style>

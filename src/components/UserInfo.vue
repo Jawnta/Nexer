@@ -106,7 +106,7 @@ export default {
 
 fieldset {
     /* position: relative; */
-    /* width: 400px; */
+    width: 300px; 
     border: none;
 }
 
@@ -129,7 +129,7 @@ textarea {
 
 .userinfo input,
 .userinfo textarea {
-    max-width: 400px;
+    max-width: 300px;
     background-color: #fff;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     padding: 6px 12px;
