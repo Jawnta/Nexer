@@ -64,7 +64,7 @@ export default defineComponent({
     methods: {
         init() {
             // Global variables for takePicture function
-            this.video = this.$refs.cameraFeed;
+            //this.video = this.$refs.cameraFeed;
             // Create a THREE scene
             this.scene = new THREE.Scene();
             this.camera = new THREE.PerspectiveCamera(
@@ -73,7 +73,7 @@ export default defineComponent({
                 0.1,
                 20
             );
-            this.camera.position.z = 1;
+            this.camera.position.z = 5;
             // Create a THREE WebGLRenderer
             this.canvas = this.$refs.canvas;
 
