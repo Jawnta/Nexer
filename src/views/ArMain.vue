@@ -136,7 +136,7 @@ export default defineComponent({
             const gltf = await loader.loadAsync(modelUrl);
             this.model = gltf.scene;
             this.model.outputEncoding = THREE.sRGBEncoding;
-            this.model.scale.multiplyScalar(0.005);
+            this.model.scale.multiplyScalar(this.payloadStore.selectedContainer.value?.scale);
             this.model.visible = false;
             this.scene.add(this.model);
         },
