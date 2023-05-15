@@ -54,11 +54,11 @@ export default {
     },
     methods: {
         setMinDeliveryDate() {
-            return dayjs().add(2, "day").format("YYYY-MM-DD").toString();
+            return dayjs().add(1, "day").format("YYYY-MM-DD").toString();
         },
         setMinPickupDate(): string {
             return dayjs(this.payloadStore.deliveryDate.value)
-                .add( 2, "day")
+                .add( 1, "day")
                 .format("YYYY-MM-DD")
                 .toString();
         },

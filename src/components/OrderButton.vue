@@ -40,13 +40,14 @@ export default defineComponent({
                 return false;
             }
 
-            /* this.sendDataToApi();
-            this.sendAdminEmail(); */
+            // this.sendDataToApi();
+            this.sendEmail();
+            this.sendAdminEmail();
             this.$router.push("/OrderConfirmation");
         },
         returnOrderData() {
             const payloadStore = usePayloadStore();
-            const adminEmail = "zakaharif@hotmail.se";
+            const adminEmail = "jawntalol@gmail.com";
             const markerLink = "https://www.google.com/maps/search/?api=1&query="+
             `${payloadStore.containerMarker.value.lat},`+
             `${payloadStore.containerMarker.value.lng}`;
@@ -54,7 +55,6 @@ export default defineComponent({
 
             return {
                 to_email: adminEmail,
-
                 deliveryDate: payloadStore.deliveryDate.value,
                 pickupDate: payloadStore.pickupDate.value,
                 firstname: payloadStore.firstName.value,
@@ -73,29 +73,23 @@ export default defineComponent({
                 markerLink: markerLink,
             }
         },
-        /* sendEmail() {
-            emailjs
-                .send(
-                    "service_ne3xu3v",
-                    "template_chpkccp",
-                    {
-                        to_name: "Recipient Name",
-                        from_name: "Your Name",
-                        message:
-                            "This is a test email sent from Vue.js using EmailJS and Gmail.",
-                        to_email: "jawntalol@gmail.com",
-                    },
-                    "aJoppP8gvteb65_ur"
-                )
-                .then(
-                    function (response) {
-                        console.log("SUCCESS!", response.status, response.text);
-                    },
-                    function (error) {
-                        console.log("FAILED...", error);
-                    }
-                );
-        }, */
+        sendEmail() {
+            const order_data = this.returnOrderData();
+            emailjs.send(
+                "service_ne3xu3v",
+                "template_chpkccp",
+                order_data,
+                "aJoppP8gvteb65_ur"
+            )
+            .then(
+                function (response) {
+                    console.log("SUCCESS!", response.status, response.text);
+                },
+                function (error) {
+                    console.log("FAILED...", error);
+                }
+            );
+        },
         sendAdminEmail() {
             const order_data = this.returnOrderData();
             emailjs.send(
