@@ -47,7 +47,7 @@ export default defineComponent({
         },
         returnOrderData() {
             const payloadStore = usePayloadStore();
-            const adminEmail = "jawntalol@gmail.com";
+            const adminEmail = "teamnexer.bth.student@gmail.com";
             const markerLink = "https://www.google.com/maps/search/?api=1&query="+
             `${payloadStore.containerMarker.value.lat},`+
             `${payloadStore.containerMarker.value.lng}`;
