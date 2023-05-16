@@ -8,8 +8,8 @@ import ArIcon from "../assets/img/AR.png";
             <img :src="ArIcon" style="width: inherit" alt="container-logo" />
         </button>
         <p>
-            Genom att använda augmented reality (AR) kan man se en modell av en
-            container i vekrligheten och även placera den där man önskar.
+            Genom att använda augmented reality (AR) kan du se en modell av den valda
+            container i verkligheten och även placera den där du önskar.
         </p>
     </div>
 </template>
