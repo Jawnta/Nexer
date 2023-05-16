@@ -21,7 +21,9 @@ button {
 }
 
 .main-wrapper {
-    padding: 25px;
+    padding: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     display: flex;
     flex-flow: column wrap;
     align-items: center;

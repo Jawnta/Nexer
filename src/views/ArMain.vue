@@ -170,7 +170,7 @@ export default defineComponent({
                 this.model.position.setFromMatrixPosition(this.reticle.matrix);
                 this.model.quaternion.setFromRotationMatrix(this.reticle.matrix);
                 this.model.position.x += 0.25;
-                this.model.position.z -= 0.25;
+                this.model.position.z -= 3;
                 this.containerIsPlaced = true;
             }
         },

@@ -217,6 +217,18 @@ export default {
     color: #2985e1;
 }
 
+.info-popup {
+    position: fixed;
+    text-align: center;
+    margin: 20px;
+    /* max-width: 400px; */
+    padding: 25px;
+    background: white;
+    box-shadow: #00000028 4px 4px 20px;
+    border-radius: 24px;
+    z-index: 9999;
+}
+
 .info-popup button{
     text-align: center;
     cursor: pointer;
@@ -226,18 +238,6 @@ export default {
     border-radius: 40px;
     /* background-color: #c0e0ff; */
     color: #2985e1;
-}
-
-.info-popup {
-    position: fixed;
-    text-align: center;
-    margin: 20px;
-    /* max-width: 400px; */
-    padding: 30px;
-    background: white;
-    box-shadow: #00000028 4px 4px 20px;
-    border-radius: 24px;
-    z-index: 9999;
 }
 
 .selected {

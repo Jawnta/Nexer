@@ -29,7 +29,7 @@ export default defineComponent({
 
 <style>
 
-#ARButton {
+/* #ARButton {
     position: absolute !important; 
     bottom: 20px !important; 
     padding: 12px 6px !important; 
@@ -52,5 +52,5 @@ export default defineComponent({
 
 #ARButton:hover{
     opacity: 1 !important;
-}
-    </style>
+} */
+</style>
