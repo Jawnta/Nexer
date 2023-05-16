@@ -4,10 +4,10 @@
         <button ref="picture" class="gui-button" v-show="containerIsPlaced" style="bottom: 40px; left: 0; right: 0;">
             <img src="/src/assets/img/camera.png" style="width: 80px">
         </button>
-        <a ref="rotate_right"  class="arrow right"><svg width="60" height="60" viewBox="0 0 24 24" fill="#fffff" xmlns="http://www.w3.org/2000/svg">
+        <a v-show="containerIsPlaced" ref="rotate_right"  class="arrow right"><svg width="60" height="60" viewBox="0 0 24 24" fill="#fffff" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M17.917 13H17.91C17.8392 13.4397 17.7174 13.8742 17.5445 14.2972C17.1106 15.3433 16.3892 16.2401 15.479 16.889L15.46 16.87C14.71 17.41 13.87 17.76 13 17.9V17.917C12.6748 17.9716 12.3407 18 12 18C11.6593 18 11.3252 17.9716 11 17.917V17.91C8.24875 17.445 6.13566 15.1218 6.00628 12.2769C6.00211 12.1851 6 12.0928 6 12C6 9.03 8.16 6.57 11 6.09V10L15.55 5.55L11 1V4.07C7.06 4.56 4 7.92 4 12C4 13.4006 4.35943 14.7164 4.99132 15.8603C6.35359 18.3283 8.98157 20 12 20C16.4183 20 20 16.4183 20 12H18C18 12.3407 17.9716 12.6748 17.917 13Z" fill="black"/>
         </svg></a>
-        <a ref="rotate_left"    class="arrow left"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a v-show="containerIsPlaced" ref="rotate_left"    class="arrow left"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M13 1V4.07C16.95 4.56 20 7.92 20 12C20 13.4074 19.6371 14.729 18.9995 15.8768C17.6347 18.3358 15.0117 20 12 20C7.58172 20 4 16.4183 4 12H6C6 12.3407 6.0284 12.6748 6.08296 13H6.09001C6.20601 13.7292 6.46621 14.4309 6.84783 15.0767C7.27491 15.7903 7.84606 16.4079 8.52109 16.8891L8.54001 16.87C9.29001 17.41 10.13 17.75 11 17.9V17.917C11.3252 17.9716 11.6593 18 12 18C12.3407 18 12.6748 17.9716 13 17.917V17.91C15.7069 17.4525 17.796 15.1963 17.9859 12.4141C17.9953 12.2773 18 12.1392 18 12C18 9.03 15.84 6.57 13 6.09V10L8.45001 5.55L13 1Z" fill="black"/>
         </svg></a>
         <button @click="backButton" class="gui-button" style="bottom: 40px; left: 50px;">
