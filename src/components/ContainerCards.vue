@@ -178,7 +178,7 @@ export default {
 
 .swiper-slide {
     display: flex;
-    width: 78vw;
+    width: 315px;
     height: 460px;
     background-color: white;
     box-shadow: #00000020 10px 10px 40px;
